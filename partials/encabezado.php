@@ -6,12 +6,12 @@
     <div class="contenedor">
 
         <div class="encabezado__marca">
-            <?= svg_en_linea('assets/img/logo.svg', 'marca__logo', 'Huellitas al Corazón') ?>
-
-            <div class="marca__texto">
+            <div class="marca">
+                <?= svg_en_linea('assets/img/logo.svg', 'marca__logo', '') ?>
                 <h1 class="titulo-principal"><?= e($hero['titulo']) ?></h1>
-                <p class="subtitulo"><?= e($hero['subtitulo']) ?></p>
             </div>
+
+            <p class="subtitulo"><?= e($hero['subtitulo']) ?></p>
         </div>
 
         <nav class="indice" aria-label="Índice del expediente">
