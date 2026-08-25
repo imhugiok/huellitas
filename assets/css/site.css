@@ -227,7 +227,16 @@ a { color: inherit; }
     .encabezado__marca { flex-direction: row; align-items: center; gap: 2.25rem; }
     .indice__lista { grid-template-columns: repeat(5, 1fr); border-top: 0; }
     .indice__item { border-bottom: 0; border-top: 2px solid var(--linea-fuerte); }
-    .indice__enlace { flex-direction: column; gap: 0.35rem; padding: 0.75rem 0 0; }
+    /* Cada entrada centrada en su celda: antes se pegaban al borde izquierdo
+       de columnas anchas y el indice se veia descuadrado. */
+    .indice__enlace {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.35rem;
+        padding: 0.75rem 0 0;
+    }
+
     .indice__enlace:hover, .indice__enlace:focus-visible { padding-left: 0; }
 }
 

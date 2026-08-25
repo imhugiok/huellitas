@@ -66,6 +66,39 @@ return [
                 ],
             ],
             [
+                'id'        => 'feria',
+                'corto'     => 'Venta con causa',
+                'titulo'    => 'Venta con causa en una feria',
+                'fecha'     => '2025',
+                'fecha_iso' => '2025',
+                'texto'     => 'Venta de bolis hecha personalmente para recaudar fondos, entregados directo '
+                             . 'al refugio.',
+                'imagenes'  => [],
+                'imagen_pendiente' => 'venta-bolis',
+                'enlaces'   => [
+                    ['url' => 'https://www.instagram.com/p/DO2NyJ3DDkn/', 'texto' => 'Publicación de la venta'],
+                ],
+            ],
+            [
+                'id'        => 'croquetas',
+                'corto'     => 'Donación',
+                'titulo'    => 'Campaña de donación de croquetas',
+                'fecha'     => '3 de octubre de 2025',
+                'fecha_iso' => '2025-10-03',
+                'texto'     => 'Caja de acopio en la escuela para que quien quisiera dejara croqueta. '
+                             . 'Lo recolectado se entregó directo a los refugios.',
+                'imagenes'  => [
+                    [
+                        'archivo' => 'donacion-croquetas',
+                        'alt'     => 'Caja de acopio con un letrero hecho a mano que dice Donación de '
+                                   . 'croquetas, con bolsas de alimento para perro adentro.',
+                        'pie'     => 'La caja de acopio con lo que se juntó. El letrero está hecho a mano: '
+                                   . 'no hubo presupuesto para nada más.',
+                    ],
+                ],
+                'enlaces'   => [],
+            ],
+            [
                 'id'        => 'yoga',
                 'corto'     => 'Evento de yoga',
                 'titulo'    => 'Evento de adopción responsable',
@@ -84,20 +117,6 @@ return [
                 ],
                 'enlaces'   => [
                     ['url' => 'https://www.instagram.com/p/DP8UTm0DYXV/', 'texto' => 'Publicación del evento'],
-                ],
-            ],
-            [
-                'id'        => 'feria',
-                'corto'     => 'Venta con causa',
-                'titulo'    => 'Venta con causa en una feria',
-                'fecha'     => '2025',
-                'fecha_iso' => '2025',
-                'texto'     => 'Venta de bolis hecha personalmente para recaudar fondos, entregados directo '
-                             . 'al refugio.',
-                'imagenes'  => [],
-                'imagen_pendiente' => 'venta-bolis',
-                'enlaces'   => [
-                    ['url' => 'https://www.instagram.com/p/DO2NyJ3DDkn/', 'texto' => 'Publicación de la venta'],
                 ],
             ],
             [
