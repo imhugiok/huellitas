@@ -57,7 +57,8 @@ return [
                 'fecha_iso' => '2025-09',
                 'texto'     => 'Visitas a refugios para levantar información directa: qué necesitaban, cuáles '
                              . 'eran los problemas más comunes de los perros en calle y cómo terminaban ahí. '
-                             . 'Sirvió de diagnóstico para decidir en qué apoyar.',
+                             . 'En paralelo apliqué una encuesta de 22 preguntas que respondieron 45 '
+                             . 'personas. Entre las dos salió el diagnóstico de en qué apoyar.',
                 'imagenes'  => [
                     [
                         'archivo' => 'investigacion-refugios',
@@ -207,6 +208,14 @@ return [
                 'confirmado' => 'Entregas recurrentes',
                 'estimado'   => null,
                 'fuente'     => 'Documentadas en publicaciones y fotos. Sin conteo respaldado.',
+            ],
+            [
+                'metrica'    => 'Respuestas a la encuesta',
+                'confirmado' => '45',
+                'estimado'   => null,
+                'fuente'     => 'Encuesta de 22 preguntas aplicada entre el 28 de agosto y el 15 de '
+                              . 'septiembre de 2025. El formulario sigue abierto y las respuestas '
+                              . 'están en el panel del proyecto.',
             ],
             [
                 'metrica'    => 'Publicaciones documentadas',
@@ -381,6 +390,79 @@ return [
                         . 'más cercano suele ser el atajo, porque ellos sí saben cuándo son.',
                     ],
                 ],
+            ],
+        ],
+
+        'encuesta' => [
+            'titulo' => 'Lo que contestaron 45 personas',
+            'lede'   => 'Antes de decidir en qué apoyar aplicamos una encuesta. Estos son los '
+                      . 'resultados, con sus números tal como salieron.',
+
+            'contexto' => 'La encuesta se aplicó entre el 28 de agosto y el 15 de septiembre de 2025, '
+                        . 'en paralelo a las primeras visitas al refugio. Fueron 22 preguntas y '
+                        . 'respondieron 45 personas, casi todas de la comunidad de Tecmilenio '
+                        . 'Guadalajara Sur.',
+
+            'hallazgos' => [
+                [
+                    'cifra'   => '62 %',
+                    'de'      => '28 de 45',
+                    'dice'    => 'no sabe dónde encontrar un refugio o asociación que de verdad ayude',
+                    'lectura' => 'Es el dato que más nos movió. La gente sí quiere ayudar; lo que no '
+                               . 'tiene es a dónde ir. Por eso esta página lleva los refugios con su '
+                               . 'enlace directo, y no solo el nombre.',
+                ],
+                [
+                    'cifra'   => '82 %',
+                    'de'      => '37 de 45',
+                    'dice'    => 'cree que adoptar es mejor que comprar',
+                    'lectura' => 'La convicción ya existe. El problema no es convencer a nadie de que '
+                               . 'adoptar está bien: es que quien ya está convencido no sabe dar el '
+                               . 'siguiente paso.',
+                ],
+                [
+                    'cifra'   => '56 %',
+                    'de'      => '25 de 45',
+                    'dice'    => 'adoptaría un perro aunque ya tenga uno en casa',
+                    'lectura' => 'Más de la mitad tiene espacio para uno más. Es el público al que le '
+                               . 'sirve un evento de adopción, y fue parte de por qué organizamos el '
+                               . 'del 16 de octubre.',
+                ],
+            ],
+
+            'tablas' => [
+                [
+                    'pregunta' => '¿Qué crees que necesitan más los refugios de perros?',
+                    'nota'     => '29 respuestas',
+                    'filas'    => [
+                        ['Alimentos y medicinas',    '9',  '31 %'],
+                        ['Apoyo económico',          '7',  '24 %'],
+                        ['Espacios adecuados',       '7',  '24 %'],
+                        ['Más voluntarios',          '3',  '10 %'],
+                        ['Difusión de sus campañas', '3',  '10 %'],
+                    ],
+                ],
+                [
+                    'pregunta' => '¿Cómo crees que se podría reducir el número de perros en la calle?',
+                    'nota'     => '29 respuestas',
+                    'filas'    => [
+                        ['Multas y sanciones al abandono', '9', '31 %'],
+                        ['Más campañas de esterilización', '8', '28 %'],
+                        ['Educación en las familias',      '7', '24 %'],
+                        ['Más refugios',                   '5', '17 %'],
+                    ],
+                ],
+            ],
+
+            'limites' => 'Hay que leerla por lo que es. 45 respuestas de una comunidad escolar no '
+                       . 'representan a Guadalajara, y dos de las preguntas se agregaron con la '
+                       . 'encuesta ya en circulación, así que esas tienen 29 respuestas y no 45. '
+                       . 'Los porcentajes están redondeados. El formulario sigue abierto y cualquiera '
+                       . 'puede ver las preguntas.',
+
+            'enlace' => [
+                'url'   => 'https://docs.google.com/forms/d/e/1FAIpQLSeysnNzxnTtfGmiD7cGG4ZFJmYRAd17GBSDkWoGSvw-O0FddA/viewform',
+                'texto' => 'Ver el formulario original',
             ],
         ],
 

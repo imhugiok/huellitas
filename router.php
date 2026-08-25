@@ -28,6 +28,7 @@ $rutas = [
     '~^/galeria/?$~'  => 'galeria.php',
     '~^/cuidados/?$~' => 'cuidados.php',
     '~^/sitemap\.xml$~' => 'sitemap.php',
+    '~^/llms\.txt$~'    => 'llms.php',
 ];
 
 foreach ($rutas as $patron => $archivo) {

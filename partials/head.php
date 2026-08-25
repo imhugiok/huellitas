@@ -2,10 +2,13 @@
 /** @var array $sitio */
 /** @var array $pie */
 /** @var string $nonce */
+/** @var array|null $grafo  Nodos JSON-LD propios de la pagina. */
 
-$ogAbsoluta = url_absoluta($sitio['og_imagen'], $sitio['url']);
+// La imagen social se resuelve contra la raiz del sitio, no contra la URL de
+// la pagina: si no, /galeria pediria /galeria/assets/img/og-galeria.png.
+$ogAbsoluta = url_absoluta($sitio['og_imagen'], $sitio['raiz'] ?? $sitio['url']);
 
-$jsonLd = [
+$organizacion = [
     '@context'    => 'https://schema.org',
     '@type'       => 'Organization',
     'name'        => $sitio['nombre'],
@@ -16,6 +19,21 @@ $jsonLd = [
     'areaServed'  => ['@type' => 'City', 'name' => 'Guadalajara, Jalisco, México'],
     'sameAs'      => [$pie['instagram_url']],
     'founder'     => ['@type' => 'Person', 'name' => $pie['autor'], 'url' => $pie['autor_url']],
+];
+
+// Un solo @graph con la organizacion, el sitio y lo que aporte cada pagina.
+$jsonLd = [
+    '@context' => 'https://schema.org',
+    '@graph'   => array_merge([
+        $organizacion,
+        [
+            '@type'         => 'WebSite',
+            'name'          => $sitio['nombre'],
+            'url'           => $sitio['raiz'] ?? $sitio['url'],
+            'inLanguage'    => 'es-MX',
+            'publisher'     => ['@type' => 'Organization', 'name' => $sitio['nombre']],
+        ],
+    ], $grafo ?? []),
 ];
 ?>
 <head>
@@ -38,12 +56,13 @@ $jsonLd = [
 <meta property="og:image" content="<?= e($ogAbsoluta) ?>">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Huellitas al Corazón — proyecto de bienestar animal en Guadalajara.">
+<meta property="og:image:alt" content="<?= e($sitio['og_alt'] ?? 'Huellitas al Corazón — proyecto de bienestar animal en Guadalajara.') ?>">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<?= e($sitio['titulo']) ?>">
 <meta name="twitter:description" content="<?= e($sitio['descripcion']) ?>">
 <meta name="twitter:image" content="<?= e($ogAbsoluta) ?>">
+<meta name="twitter:image:alt" content="<?= e($sitio['og_alt'] ?? 'Huellitas al Corazón — proyecto de bienestar animal en Guadalajara.') ?>">
 
 <link rel="icon" href="<?= e(asset('assets/img/logo.svg')) ?>" type="image/svg+xml">
 <link rel="icon" href="<?= e(asset('assets/img/icono-512.png')) ?>" sizes="512x512">

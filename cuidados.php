@@ -32,10 +32,80 @@ $sitio = $c['sitio'] + [];
 $sitio['titulo']      = $c['cuidados']['titulo'] . ' — ' . $c['sitio']['nombre'];
 $sitio['descripcion'] = $c['cuidados']['descripcion'];
 $sitio['url']         = rtrim($c['sitio']['url'], '/') . '/cuidados';
+$sitio['raiz']        = $c['sitio']['url'];
+$sitio['og_imagen']   = 'assets/img/og-cuidados.png';
+$sitio['og_alt']      = 'Perros del refugio en el patio, entre comederos y jaulas.';
+
+$autor = ['@type' => 'Person', 'name' => $c['pie']['autor'], 'url' => $c['pie']['autor_url']];
+
+$grafo = [];
+
+// Un Article por texto. Es lo que permite que un buscador o un modelo cite el
+// articulo concreto y no la pagina entera.
+foreach ($c['cuidados']['articulos']['items'] as $a) {
+    $grafo[] = [
+        '@type'            => 'Article',
+        'headline'         => $a['titulo'],
+        'description'      => $a['lede'],
+        'articleBody'      => implode("
+
+", $a['parrafos']),
+        'inLanguage'       => 'es-MX',
+        'url'              => $sitio['url'] . '#articulo-' . $a['id'],
+        'author'           => $autor,
+        'publisher'        => ['@type' => 'Organization', 'name' => $c['sitio']['nombre']],
+        'isPartOf'         => ['@type' => 'WebPage', 'url' => $sitio['url']],
+    ];
+}
+
+// FAQPage: Google restringio sus resultados enriquecidos a sitios de gobierno y
+// salud desde agosto de 2023, asi que esto no va a pintar acordeones en la
+// SERP. Se pone porque los modelos de lenguaje si lo leen para citar respuestas.
+$grafo[] = [
+    '@type'      => 'FAQPage',
+    'inLanguage' => 'es-MX',
+    'url'        => $sitio['url'] . '#preguntas',
+    'mainEntity' => array_map(static fn (array $q): array => [
+        '@type'          => 'Question',
+        'name'           => $q['p'],
+        'acceptedAnswer' => ['@type' => 'Answer', 'text' => $q['r']],
+    ], $c['cuidados']['preguntas']['items']),
+];
+
+// La encuesta, como conjunto de datos con su procedencia.
+$grafo[] = [
+    '@type'            => 'Dataset',
+    'name'             => 'Encuesta sobre perros en situación de calle en Guadalajara (2025)',
+    'description'      => $c['cuidados']['encuesta']['contexto'],
+    'url'              => $sitio['url'] . '#encuesta',
+    'inLanguage'       => 'es-MX',
+    'creator'          => $autor,
+    'temporalCoverage' => '2025-08-28/2025-09-15',
+    'spatialCoverage'  => ['@type' => 'Place', 'name' => 'Guadalajara, Jalisco, México'],
+    'measurementTechnique' => 'Cuestionario en línea de 22 preguntas',
+    'variableMeasured' => array_map(static fn (array $h): array => [
+        '@type' => 'PropertyValue',
+        'name'  => $h['dice'],
+        'value' => $h['cifra'],
+    ], $c['cuidados']['encuesta']['hallazgos']),
+    'distribution'     => [
+        '@type'       => 'DataDownload',
+        'contentUrl'  => $c['cuidados']['encuesta']['enlace']['url'],
+        'description' => 'Formulario original con las 22 preguntas',
+    ],
+];
+
+$grafo[] = [
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => [
+        ['@type' => 'ListItem', 'position' => 1, 'name' => $c['sitio']['nombre'], 'item' => $c['sitio']['url']],
+        ['@type' => 'ListItem', 'position' => 2, 'name' => $c['cuidados']['titulo'], 'item' => $sitio['url']],
+    ],
+];
 ?>
 <!doctype html>
 <html lang="<?= e($c['sitio']['idioma']) ?>">
-<?php componente('head', ['sitio' => $sitio, 'pie' => $c['pie'], 'nonce' => $nonce]); ?>
+<?php componente('head', ['sitio' => $sitio, 'pie' => $c['pie'], 'nonce' => $nonce, 'grafo' => $grafo]); ?>
 <body>
 
 <a class="saltar-al-contenido" href="#contenido">Saltar al contenido</a>

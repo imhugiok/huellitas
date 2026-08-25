@@ -22,6 +22,7 @@ Options -Indexes
     # asi que ahi hay que entrar por /galeria.php.
     RewriteRule ^galeria/?$ galeria.php [L]
     RewriteRule ^cuidados/?$ cuidados.php [L]
+    RewriteRule ^llms\.txt$ llms.php [L]
 </IfModule>
 
 <IfModule mod_headers.c>

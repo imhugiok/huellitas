@@ -31,6 +31,12 @@ $preguntas = $bloque['preguntas']['items'];
             </ol>
 
             <p class="asomo__salida">
+                <a class="enlace-texto" href="/cuidados#encuesta">
+                    Y los resultados de la encuesta: qué contestaron 45 personas
+                </a>
+            </p>
+
+            <p class="asomo__salida asomo__salida--segunda">
                 <a class="enlace-texto" href="/cuidados#preguntas">
                     Y <?= e((string) count($preguntas)) ?> preguntas frecuentes
                 </a>

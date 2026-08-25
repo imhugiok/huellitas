@@ -18,7 +18,7 @@
 
         var objetivos = document.querySelectorAll(
             '.seccion__cabecera, .prosa, .actividad, .jornada, .articulo, ' +
-            '.pregunta, .asomo__lista, .tabla-envoltura, .aliados__grupo, .pendientes'
+            '.pregunta, .asomo__lista, .hallazgo, .tabla-envoltura, .aliados__grupo, .pendientes'
         );
 
         if (!objetivos.length) {

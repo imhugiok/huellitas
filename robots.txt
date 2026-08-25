@@ -5,3 +5,6 @@ Disallow: /lib/
 Disallow: /partials/
 
 Sitemap: https://huellitas.hugorivera.me/sitemap.xml
+
+# Resumen del sitio para modelos de lenguaje
+# https://huellitas.hugorivera.me/llms.txt

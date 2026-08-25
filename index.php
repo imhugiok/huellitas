@@ -30,6 +30,39 @@ header("Content-Security-Policy: "
     . "connect-src 'self'; "
     . 'upgrade-insecure-requests');
 
+// La raiz sirve para resolver la imagen social y el @id del sitio desde
+// cualquier pagina.
+$c['sitio']['raiz'] = $c['sitio']['url'];
+$c['sitio']['og_alt'] = 'Un perro del refugio caminando entre los tapetes del evento de adopción '
+                      . 'responsable, en el claustro de Tecmilenio Guadalajara Sur.';
+
+// Cada actividad fechada es un Event: es lo que un buscador puede entender de
+// un expediente como este.
+$grafo = [];
+
+foreach ($c['actividades']['items'] as $act) {
+    if ($act['fecha_iso'] === null || strlen($act['fecha_iso']) < 10) {
+        continue; // Sin fecha exacta no se declara un evento.
+    }
+
+    $nodo = [
+        '@type'       => 'Event',
+        'name'        => $act['titulo'],
+        'startDate'   => $act['fecha_iso'],
+        'description' => $act['texto'],
+        'organizer'   => ['@type' => 'Organization', 'name' => $c['sitio']['nombre']],
+        'location'    => ['@type' => 'Place', 'address' => 'Guadalajara, Jalisco, México'],
+        'eventStatus' => 'https://schema.org/EventScheduled',
+        'url'         => $c['sitio']['url'] . '#actividad-' . $act['id'],
+    ];
+
+    if (!empty($act['enlaces'][0]['url'])) {
+        $nodo['subjectOf'] = ['@type' => 'CreativeWork', 'url' => $act['enlaces'][0]['url']];
+    }
+
+    $grafo[] = $nodo;
+}
+
 $secciones = [
     ['id' => 'que-es',       'titulo' => $c['que_es']['titulo']],
     ['id' => 'actividades',  'titulo' => $c['actividades']['titulo']],
@@ -42,7 +75,7 @@ $secciones = [
 ?>
 <!doctype html>
 <html lang="<?= e($c['sitio']['idioma']) ?>">
-<?php componente('head', ['sitio' => $c['sitio'], 'pie' => $c['pie'], 'nonce' => $nonce]); ?>
+<?php componente('head', ['sitio' => $c['sitio'], 'pie' => $c['pie'], 'nonce' => $nonce, 'grafo' => $grafo]); ?>
 <body>
 
 <a class="saltar-al-contenido" href="#contenido">Saltar al contenido</a>

@@ -792,6 +792,8 @@ a { color: inherit; }
 
 .asomo__salida { margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.25rem); }
 
+.asomo__salida--segunda { margin-top: 0.6rem; }
+
 
 /* --- 8c. Cuidados: articulos y preguntas ------------------------------- */
 
@@ -853,6 +855,72 @@ a { color: inherit; }
     color: var(--tinta-2);
     font-size: var(--texto-chico);
 }
+
+
+/* --- 8d. Hallazgos de la encuesta -------------------------------------- */
+
+.hallazgos {
+    list-style: none;
+    padding: 0;
+    margin: clamp(1.75rem, 1.25rem + 2vw, 2.75rem) 0 0;
+    display: grid;
+    gap: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+    max-width: var(--ancho-laminas);
+}
+
+.hallazgo {
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--tinta);
+}
+
+.hallazgo__cifra {
+    font-size: var(--texto-cifra);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--acento-tinta);
+}
+
+.hallazgo__dice {
+    margin-top: 0.5rem;
+    font-size: var(--texto-subtitulo);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+}
+
+.hallazgo__de {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: var(--texto-meta);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+}
+
+.hallazgo__lectura {
+    margin-top: 0.75rem;
+    max-width: var(--ancho-medida);
+    color: var(--tinta-2);
+    font-size: var(--texto-chico);
+}
+
+.tabla-encuesta { margin-top: 0; }
+
+.encuesta__pregunta {
+    text-align: left;
+    padding-bottom: 0.875rem;
+    font-weight: 600;
+    letter-spacing: -0.011em;
+}
+
+.encuesta__pregunta .col__nota {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--tinta-3);
+    font-weight: 500;
+}
+
+.seccion--encuesta .tabla-envoltura { margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); }
 
 
 /* --- 9. Tabla de numeros ----------------------------------------------- */

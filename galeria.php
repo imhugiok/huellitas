@@ -31,10 +31,38 @@ $sitio = $c['sitio'] + [];
 $sitio['titulo']      = $c['galeria']['titulo'] . ' — ' . $c['sitio']['nombre'];
 $sitio['descripcion'] = $c['galeria']['descripcion'];
 $sitio['url']         = rtrim($c['sitio']['url'], '/') . '/galeria';
+$sitio['raiz']        = $c['sitio']['url'];
+$sitio['og_imagen']   = 'assets/img/og-galeria.png';
+$sitio['og_alt']      = 'Camada de cachorros dentro de una jaula del refugio, junto a un comedero.';
+
+$grafo = [
+    [
+        '@type'       => 'ImageGallery',
+        'name'        => $sitio['titulo'],
+        'description' => $sitio['descripcion'],
+        'url'         => $sitio['url'],
+        'inLanguage'  => 'es-MX',
+        'about'       => ['@type' => 'Organization', 'name' => $c['sitio']['nombre']],
+        'hasPart'     => array_map(static fn (array $g): array => [
+            '@type'         => 'ImageGallery',
+            'name'          => $g['titulo'],
+            'datePublished' => $g['fecha_iso'],
+            'description'   => $g['texto'],
+            'url'           => $sitio['url'] . '#jornada-' . $g['id'],
+        ], $c['galeria']['grupos']),
+    ],
+    [
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => [
+            ['@type' => 'ListItem', 'position' => 1, 'name' => $c['sitio']['nombre'], 'item' => $c['sitio']['url']],
+            ['@type' => 'ListItem', 'position' => 2, 'name' => $c['galeria']['titulo'], 'item' => $sitio['url']],
+        ],
+    ],
+];
 ?>
 <!doctype html>
 <html lang="<?= e($c['sitio']['idioma']) ?>">
-<?php componente('head', ['sitio' => $sitio, 'pie' => $c['pie'], 'nonce' => $nonce]); ?>
+<?php componente('head', ['sitio' => $sitio, 'pie' => $c['pie'], 'nonce' => $nonce, 'grafo' => $grafo]); ?>
 <body>
 
 <a class="saltar-al-contenido" href="#contenido">Saltar al contenido</a>
