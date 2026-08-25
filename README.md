@@ -143,8 +143,11 @@ variables → Actions** del repo:
 | `FTP_USUARIO` | Usuario FTP del subdominio |
 | `FTP_PASSWORD` | Su contraseña |
 
-Y si hPanel te dio una carpeta distinta de `public_html/huellitas/`, ponla como
-**variable** (no secret) llamada `FTP_RUTA`.
+La variable `FTP_RUTA` vale `./` y **no hay que cambiarla**: la cuenta FTP de
+Hostinger ya está anclada a la raíz del subdominio. Poner ahí una ruta como
+`public_html/huellitas/` no falla, crea esa carpeta dentro y el sitio acaba
+publicado dos niveles más abajo mientras el dominio sigue enseñando la página
+por defecto.
 
 ### Comprobación después de subir
 
