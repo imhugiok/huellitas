@@ -490,6 +490,7 @@ return [
     'pie' => [
         'autor'         => 'Hugo Rivera',
         'autor_url'     => 'https://hugorivera.me',
+        'autor_enlace'  => 'Hugo Rivera — Portafolio',
         'instagram'     => '@huellitasalcorazon.gdl',
         'instagram_url' => 'https://www.instagram.com/huellitasalcorazon.gdl/',
         'lugar'         => 'Guadalajara, Jalisco, México',

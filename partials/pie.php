@@ -14,7 +14,7 @@
             <ul class="pie__datos">
                 <li>
                     <a href="<?= e($pie['autor_url']) ?>" target="_blank" rel="noopener noreferrer">
-                        <?= e($pie['autor']) ?> — hugorivera.me
+                        <?= e($pie['autor_enlace']) ?>
                     </a>
                 </li>
                 <li>

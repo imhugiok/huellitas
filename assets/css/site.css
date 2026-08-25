@@ -54,6 +54,8 @@ button, input { font: inherit; color: inherit; }
     --canal-ancho:     17rem;  /* columna izquierda: titulo sticky y linea del tiempo */
     --canal-hueco:     clamp(2.5rem, 4vw, 4.5rem);
     --pie-cierre: 1.75rem;   /* mismo aire arriba y abajo de la firma */
+    /* Arriba del logo y del titulo, y debajo del subtitulo: el mismo valor. */
+    --hero-aire:  clamp(2.5rem, 1.5rem + 4.5vw, 6rem);
     --espacio-seccion: clamp(3.75rem, 2.5rem + 5.5vw, 7.5rem);
     --radio: 3px;
 
@@ -154,9 +156,13 @@ a { color: inherit; }
 /* --- 5. Encabezado ----------------------------------------------------- */
 
 .encabezado {
-    padding-block: clamp(1.5rem, 1rem + 2vw, 2.75rem) clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+    /* El aire de arriba lo pone .encabezado__marca, para que sea exactamente
+       el mismo que el de debajo del subtitulo. */
+    padding-block: 0 clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
     border-bottom: 1px solid var(--linea-fuerte);
 }
+
+.encabezado__marca { padding-block: var(--hero-aire); }
 
 .encabezado__marca {
     display: flex;
@@ -1063,6 +1069,8 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 
 .pie__contenido {
     display: grid;
+    justify-items: center;
+    text-align: center;
     gap: clamp(1rem, 0.75rem + 1vw, 1.75rem);
 }
 
@@ -1074,7 +1082,10 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
     letter-spacing: -0.035em;
     /* Una sola linea: el tope lo pone el ancho, no un max-width que partia
        el nombre en dos. */
-    font-size: clamp(1.5rem, 8.6vw, 5.625rem);  /* hasta 90px */
+    /* 'Huellitas al Corazon' con su logo mide unas 10 veces el tamano de
+       letra, y el contenedor deja el 95% de la ventana menos su canal. De ahi
+       sale el 8.4vw: el maximo que cabe sin partirse ni desbordar. */
+    font-size: clamp(1.5rem, 8.4vw, 8rem);  /* hasta 128px */
     line-height: 1.05;
     white-space: nowrap;
 }
@@ -1082,9 +1093,15 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 /* Un poco mas bajo que la altura de la letra, para que no la domine. */
 .pie__logo {
     width: auto;
-    height: 0.82em;
+    height: 0.98em;
     color: var(--tinta);
     flex: none;
+}
+
+/* En telefono el canal del contenedor es proporcionalmente mas grande, asi
+   que el 8.4vw se queda sin margen. Aqui baja para no rozar el borde. */
+@media (max-width: 30rem) {
+    .pie__marca { font-size: clamp(1.375rem, 7.4vw, 2.5rem); }
 }
 
 .pie__datos {
@@ -1141,6 +1158,7 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
     .pie__datos {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         gap: 0.5rem 2rem;
     }
 }
