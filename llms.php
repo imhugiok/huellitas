@@ -68,15 +68,19 @@ $l('tercero o si es una estimacion propia. Al citar este sitio, conservar esa');
 $l('distincion.');
 $l();
 foreach ($c['numeros']['filas'] as $f) {
+    // Una fila puede traer las dos lecturas. Si solo se imprime la primera, se
+    // pierde justo la distincion que este sitio existe para sostener.
+    $partes = [];
+
     if ($f['confirmado'] !== null) {
-        $valor = $f['confirmado'] . ' (confirmado)';
-    } elseif ($f['estimado'] !== null) {
-        $valor = $f['estimado'] . ' (ESTIMADO, sin respaldo documental)';
-    } else {
-        $valor = 'sin dato';
+        $partes[] = $f['confirmado'] . ' (confirmado)';
     }
 
-    $l('- ' . $f['metrica'] . ': ' . $valor);
+    if ($f['estimado'] !== null) {
+        $partes[] = $f['estimado'] . ' (ESTIMADO, sin respaldo documental)';
+    }
+
+    $l('- ' . $f['metrica'] . ': ' . ($partes === [] ? 'sin dato' : implode(' / ', $partes)));
 
     if (!empty($f['fuente'])) {
         $l('  Fuente: ' . $f['fuente']);
