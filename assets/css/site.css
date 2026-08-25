@@ -48,7 +48,7 @@ button, input { font: inherit; color: inherit; }
     --texto-cifra:  clamp(1.625rem, 1.25rem + 1.7vw, 2.5rem);
 
     /* Ritmo */
-    --ancho-medida: 36rem;
+    --ancho-medida: 40rem;
     --espacio-seccion: clamp(3.75rem, 2.5rem + 5.5vw, 7.5rem);
     --radio: 3px;
 
@@ -135,7 +135,7 @@ a { color: inherit; }
  * familia del cuerpo, diferenciada por tamano, versalitas y tracking.
  */
 .fecha, .col__nota, .aliados__rol, .pendientes__titulo,
-.indice__numero, .canal__texto {
+.indice__numero, .canal__fecha {
     font-size: var(--texto-meta);
     font-weight: 500;
     letter-spacing: 0.11em;
@@ -167,12 +167,13 @@ a { color: inherit; }
 .titulo-principal {
     font-size: var(--texto-h1);
     letter-spacing: -0.035em;
-    max-width: 12ch;
+    max-width: 14ch;
+    text-wrap: balance;
 }
 
 .subtitulo {
-    margin-top: 1rem;
-    max-width: 34rem;
+    margin-top: 1.125rem;
+    max-width: 32rem;
     color: var(--tinta-2);
     font-size: clamp(1.125rem, 1.03rem + 0.5vw, 1.375rem);
     line-height: 1.45;
@@ -214,8 +215,16 @@ a { color: inherit; }
 .indice__enlace[aria-current="true"] .indice__titulo { font-weight: 600; }
 
 @media (min-width: 48rem) {
-    .encabezado__marca { flex-direction: row; align-items: flex-start; gap: 2.25rem; }
-    .marca__logo { margin-top: 0.4rem; }
+    /* El logo deja de flotar arriba a la izquierda: comparte eje optico con
+       el bloque de texto y la columna de texto se queda con el resto. */
+    .encabezado__marca {
+        display: grid;
+        grid-template-columns: minmax(12rem, 20rem) minmax(0, 1fr);
+        align-items: center;
+        gap: clamp(2rem, 4vw, 4.5rem);
+    }
+
+    .marca__logo { width: 100%; }
     .indice__lista { grid-template-columns: repeat(5, 1fr); border-top: 0; }
     .indice__item { border-bottom: 0; border-top: 2px solid var(--linea-fuerte); }
     .indice__enlace { flex-direction: column; gap: 0.35rem; padding: 0.75rem 0 0; }
@@ -243,37 +252,52 @@ a { color: inherit; }
     list-style: none;
     padding: 0;
     display: grid;
-    gap: 0.15rem;
+    gap: 0.25rem;
     border-left: 1px solid var(--linea);
 }
 
 .canal__enlace {
     display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.4rem 0 0.4rem 0.9rem;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 0.7rem 0 0.7rem 1.1rem;
     margin-left: -1px;
-    border-left: 1px solid transparent;
+    border-left: 2px solid transparent;
     text-decoration: none;
     color: var(--tinta-3);
     transition: color 200ms var(--curva), border-color 200ms var(--curva);
 }
 
 .canal__punto {
-    width: 5px;
-    height: 5px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     flex: none;
+    margin-top: 0.45em;
     background: var(--linea-fuerte);
     transition: background-color 200ms var(--curva), transform 200ms var(--curva);
 }
 
-.canal__texto { letter-spacing: 0.08em; }
+.canal__etiquetas { display: grid; gap: 0.15rem; }
+
+.canal__texto {
+    font-size: var(--texto-chico);
+    line-height: 1.3;
+    text-wrap: balance;
+}
+
+.canal__fecha {
+    font-size: 0.6875rem;
+    color: var(--tinta-3);
+    opacity: 0.75;
+}
 
 .canal__enlace:hover,
 .canal__enlace:focus-visible { color: var(--tinta-2); }
 
 .canal__enlace:hover .canal__punto { background: var(--tinta-3); }
+
+.canal__enlace[aria-current="true"] .canal__texto { font-weight: 600; }
 
 /* Ya la paso el lector. */
 .canal__item--visto .canal__enlace { color: var(--tinta-2); }
@@ -292,8 +316,8 @@ a { color: inherit; }
 
 @media (min-width: 62rem) {
     .seccion__reja {
-        grid-template-columns: 14rem minmax(0, 1fr);
-        column-gap: clamp(2.5rem, 5vw, 5rem);
+        grid-template-columns: 17rem minmax(0, 1fr);
+        column-gap: clamp(2.5rem, 4vw, 4.5rem);
     }
 
     .seccion__cabecera {
@@ -306,7 +330,7 @@ a { color: inherit; }
 
     .canal {
         display: block;
-        margin-top: 1.75rem;
+        margin-top: clamp(1.75rem, 1rem + 2vw, 2.5rem);
     }
 }
 
@@ -348,8 +372,8 @@ a { color: inherit; }
 
 .actividad {
     display: grid;
-    gap: 0.75rem;
-    padding-top: 1.5rem;
+    gap: 0.6rem;
+    padding-top: 1.75rem;
     border-top: 1px solid var(--linea);
 }
 
@@ -455,14 +479,6 @@ a { color: inherit; }
     fill: none;
     stroke: var(--acento-tinta);
     stroke-width: 1.6;
-}
-
-@media (min-width: 48rem) {
-    .actividad {
-        /* Cabe "16 de octubre de 2025" en versalitas sin partirse en dos. */
-        grid-template-columns: 13rem minmax(0, 1fr);
-        column-gap: 2rem;
-    }
 }
 
 
@@ -688,16 +704,56 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
     border-top: 2px solid var(--tinta);
 }
 
-.pie__nota {
-    color: var(--tinta-3);
+.pie__contenido {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.pie__marca {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-size: var(--texto-h3);
+}
+
+.pie__datos {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+    color: var(--tinta-2);
     font-size: var(--texto-chico);
 }
 
-.pie__firma {
-    margin-top: 0.5rem;
-    color: var(--tinta-2);
+.pie__datos a {
+    text-decoration: underline;
+    text-decoration-color: var(--linea-fuerte);
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color 160ms var(--curva);
+}
+
+.pie__datos a:hover { text-decoration-color: var(--acento); }
+
+/* Cierre centrado, al modo de Naeva: una regla y una sola linea. */
+.pie__legal { margin-top: clamp(3rem, 2rem + 4vw, 5rem); }
+
+.pie__regla {
+    height: 1px;
+    background: var(--linea);
+    margin-bottom: 1.625rem;
+}
+
+.pie__legal p {
+    text-align: center;
+    text-wrap: balance;
+    color: var(--tinta-3);
     font-size: var(--texto-chico);
-    font-style: italic;
+    line-height: 1.6;
+}
+
+
+@media (min-width: 48rem) {
+    .pie__contenido { grid-template-columns: 1fr auto; align-items: start; gap: 2rem; }
+    .pie__datos { justify-items: end; text-align: right; }
 }
 
 

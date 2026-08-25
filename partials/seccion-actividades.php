@@ -9,6 +9,7 @@ $mostrarAnexosPendientes = $bloque['mostrar_anexos_pendientes'] ?? true;
 $canal = array_map(static fn (array $item): array => [
     'ancla' => 'actividad-' . $item['id'],
     'texto' => $item['corto'],
+    'fecha' => $item['fecha'],
 ], $bloque['items']);
 ?>
 <section class="seccion seccion--actividades" id="actividades" aria-labelledby="actividades-titulo">

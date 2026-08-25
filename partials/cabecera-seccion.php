@@ -17,7 +17,12 @@
                     <li class="canal__item">
                         <a class="canal__enlace" href="#<?= e($entrada['ancla']) ?>">
                             <span class="canal__punto" aria-hidden="true"></span>
-                            <span class="canal__texto"><?= e($entrada['texto']) ?></span>
+                            <span class="canal__etiquetas">
+                                <span class="canal__texto"><?= e($entrada['texto']) ?></span>
+                                <?php if (!empty($entrada['fecha'])): ?>
+                                    <span class="canal__fecha"><?= e($entrada['fecha']) ?></span>
+                                <?php endif; ?>
+                            </span>
                         </a>
                     </li>
                 <?php endforeach; ?>

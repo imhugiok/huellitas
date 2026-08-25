@@ -61,7 +61,7 @@ $secciones = [
 
 </main>
 
-<?php componente('pie', ['pie' => $c['pie']]); ?>
+<?php componente('pie', ['pie' => $c['pie'], 'sitio' => $c['sitio']]); ?>
 
 <script src="<?= e(asset('assets/js/site.js')) ?>" nonce="<?= e($nonce) ?>" defer></script>
 </body>
