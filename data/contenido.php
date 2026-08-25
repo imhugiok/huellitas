@@ -190,9 +190,10 @@ return [
                 'metrica'    => 'Adopciones',
                 'confirmado' => '2',
                 'estimado'   => 'Probablemente más',
-                'fuente'     => 'Las 2 están confirmadas: @propatitasgdl nos mencionó en una historia y la '
-                              . 'reposteamos. Hubo 2 historias más del refugio que no reposteé y se perdieron. '
-                              . 'Sigue sin confirmar cuántas salieron del evento de yoga.',
+                'fuente'     => 'Las 2 salieron del evento de adopción responsable del 16 de octubre y '
+                              . 'están confirmadas: @propatitasgdl nos mencionó en una historia y la '
+                              . 'reposteamos. Hubo 2 historias más del refugio que no reposteé y se '
+                              . 'perdieron.',
             ],
             [
                 'metrica'    => 'Croqueta entregada',
@@ -481,8 +482,6 @@ return [
                 'Constancias por escrito de @patitas_porbimba y @propatitasgdl. Los mensajes ya están '
                 . 'enviados; sigo sin respuesta.',
                 'Constancia del evento del 16 de octubre, por solicitar a Tecmilenio.',
-                'Confirmar con el refugio si las 2 adopciones salieron del evento de yoga o de redes.',
-                'Definir la primera actividad concreta de esta segunda etapa.',
             ],
         ],
     ],

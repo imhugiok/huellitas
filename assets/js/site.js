@@ -283,6 +283,13 @@
                 return;
             }
 
+            // La casilla del contador no es una foto: es el enlace a /galeria.
+            // En /galeria el JS del recorte la intercepta antes; en la portada
+            // no hay nada que interceptar y hay que dejarla navegar.
+            if (enlace.classList.contains('cuadricula__foto--mas')) {
+                return;
+            }
+
             evento.preventDefault();
 
             var grupo = enlace.closest('.jornada') || enlace.closest('.cuadricula') || document;

@@ -17,8 +17,11 @@ $ancha   = $ancha ?? false;
 $fotos   = $grupo['fotos'];
 $total   = count($fotos);
 $recorta = $limite !== null && $total > $limite;
-$visibles  = $recorta ? array_slice($fotos, 0, $limite - 1) : $fotos;
-$restantes = $total - count($visibles);
+
+// $limite es el numero de CASILLAS, no de fotos: la ultima lleva el contador
+// encima, asi que a la vista quedan $limite - 1 fotos.
+$visibles  = $recorta ? array_slice($fotos, 0, $limite) : $fotos;
+$restantes = $recorta ? $total - ($limite - 1) : 0;
 
 // En /galeria una jornada de 275 fotos es una pared. Se enseñan las primeras
 // 30 y la casilla 30 lleva el contador; al pulsarla aparecen las demas.
@@ -81,7 +84,7 @@ $asomo = ($ancha && $total > $asomoMaximo + 6) ? $asomoMaximo : null;
                    <?= $esUltima ? '' : 'data-visor="' . e($descripcion) . '"' ?>>
                     <?php if ($esUltima): ?>
                         <span class="cuadricula__contador">
-                            <span class="cuadricula__cifra">+<?= e((string) ($restantes + 1)) ?></span>
+                            <span class="cuadricula__cifra">+<?= e((string) $restantes) ?></span>
                             <span class="cuadricula__pie">fotos</span>
                         </span>
                     <?php endif; ?>
