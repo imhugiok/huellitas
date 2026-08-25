@@ -24,6 +24,7 @@ En `data/contenido.php`, dentro de `actividades.items`, copia un bloque y ajusta
 ```php
 [
     'id'        => 'nombre-corto',              // ancla: #actividad-nombre-corto
+    'corto'     => 'Etiqueta',                  // lo que sale en el canal lateral
     'titulo'    => 'Título de la actividad',
     'fecha'     => '3 de marzo de 2027',        // como se lee en pantalla
     'fecha_iso' => '2027-03-03',                // para buscadores; null si no hay fecha exacta
@@ -41,6 +42,10 @@ En `data/contenido.php`, dentro de `actividades.items`, copia un bloque y ajusta
     ],
 ],
 ```
+
+`corto` es la etiqueta que aparece en el canal lateral de la sección (el
+sub-índice que marca en qué actividad va el lector). Que sea corta de verdad:
+dos palabras como mucho, o se parte en la columna.
 
 El `pie` de cada foto no es decorativo: es donde se dice qué prueba la imagen.
 La foto de los insumos, por ejemplo, es la que respalda los 6 kg de croqueta de
@@ -122,6 +127,25 @@ Si prefieres que los huecos no se noten mientras consigues las fotos, pon
 
 No hay nada que instalar. No hay `composer install`, no hay `npm run build`.
 
+### Deploy automático desde GitHub
+
+El repo es <https://github.com/imhugiok/huellitas>. Cada push a `main` dispara
+`.github/workflows/deploy.yml`, que valida la sintaxis de todos los PHP y sube
+el sitio por FTPS.
+
+Mientras falten los secrets el workflow termina en verde sin publicar nada, así
+que no ensucia el historial. Para encenderlo, en **Settings → Secrets and
+variables → Actions** del repo:
+
+| Secret | Qué es |
+|---|---|
+| `FTP_SERVIDOR` | Host FTP que da hPanel |
+| `FTP_USUARIO` | Usuario FTP del subdominio |
+| `FTP_PASSWORD` | Su contraseña |
+
+Y si hPanel te dio una carpeta distinta de `public_html/huellitas/`, ponla como
+**variable** (no secret) llamada `FTP_RUTA`.
+
 ### Comprobación después de subir
 
 - `https://huellitas.hugorivera.me/` carga.
@@ -175,6 +199,9 @@ assets/img/            logo.svg (el real, insertado en línea y coloreado por
   los assets un año sin dejarte con CSS viejo tras un deploy.
 - **La fecha del pie sale de `filemtime()` de `contenido.php`**, no de `date()`.
   Así la página nunca dice "actualizado hoy" solo porque alguien la abrió.
+- **La zona horaria se fija en `helpers.php`** (`America/Mexico_City`). Sin eso
+  el servidor decide: Hostinger sirve en UTC y el pie anunciaba el día siguiente
+  desde las seis de la tarde, hora de Guadalajara.
 - **Una sola familia tipográfica.** Los metadatos (fechas, folios, roles) se
   distinguen por tamaño, versalitas y tracking, no por cambiar a monoespaciada.
 - **El logo va en línea, no como `<img>`.** El SVG usa `fill="currentColor"`,

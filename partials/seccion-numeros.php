@@ -6,14 +6,11 @@
     <div class="contenedor seccion__reja">
 
         <?php componente('cabecera-seccion', [
-            'indice' => $indice,
             'titulo' => $bloque['titulo'],
             'id'     => 'numeros',
         ]); ?>
 
         <div class="seccion__contenido">
-            <p class="seccion__entradilla"><?= e($bloque['entradilla']) ?></p>
-
         <div class="tabla-envoltura">
             <table class="tabla-numeros">
                 <caption class="visualmente-oculto">
@@ -67,7 +64,6 @@
             </table>
         </div>
 
-            <p class="nota-numeros"><?= enlazar_cuentas($bloque['nota']) ?></p>
         </div>
 
     </div>

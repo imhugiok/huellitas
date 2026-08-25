@@ -49,15 +49,15 @@ $secciones = [
 
 <main id="contenido">
 
-    <?php componente('seccion-que-es', ['bloque' => $c['que_es'], 'indice' => '01']); ?>
+    <?php componente('seccion-que-es', ['bloque' => $c['que_es']]); ?>
 
-    <?php componente('seccion-actividades', ['bloque' => $c['actividades'], 'indice' => '02']); ?>
+    <?php componente('seccion-actividades', ['bloque' => $c['actividades']]); ?>
 
-    <?php componente('seccion-numeros', ['bloque' => $c['numeros'], 'indice' => '03']); ?>
+    <?php componente('seccion-numeros', ['bloque' => $c['numeros']]); ?>
 
-    <?php componente('seccion-aliados', ['bloque' => $c['aliados'], 'indice' => '04']); ?>
+    <?php componente('seccion-aliados', ['bloque' => $c['aliados']]); ?>
 
-    <?php componente('seccion-estado', ['bloque' => $c['estado'], 'indice' => '05']); ?>
+    <?php componente('seccion-estado', ['bloque' => $c['estado']]); ?>
 
 </main>
 

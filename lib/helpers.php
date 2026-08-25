@@ -9,6 +9,14 @@ declare(strict_types=1);
 
 const RAIZ = __DIR__ . '/..';
 
+/**
+ * El proyecto es de Guadalajara y la pagina presume de estar bien fechada, asi
+ * que la zona no se deja al azar del servidor. Hostinger sirve en UTC y XAMPP
+ * a veces en Europa: sin esto, el pie anunciaba el dia siguiente desde las
+ * seis de la tarde. Mexico no aplica horario de verano desde 2022.
+ */
+date_default_timezone_set('America/Mexico_City');
+
 /** Escapa para HTML. Todo texto pasa por aqui antes de imprimirse. */
 function e(?string $texto): string
 {

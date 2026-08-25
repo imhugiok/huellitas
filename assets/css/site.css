@@ -134,8 +134,8 @@ a { color: inherit; }
  * Etiquetas de metadato. Antes esto era una monoespaciada; ahora es la misma
  * familia del cuerpo, diferenciada por tamano, versalitas y tracking.
  */
-.fecha, .seccion__indice, .actividad__folio, .col__nota,
-.aliados__rol, .pendientes__titulo, .indice__numero {
+.fecha, .col__nota, .aliados__rol, .pendientes__titulo,
+.indice__numero, .canal__texto {
     font-size: var(--texto-meta);
     font-weight: 500;
     letter-spacing: 0.11em;
@@ -231,35 +231,87 @@ a { color: inherit; }
 
 .seccion__reja { display: grid; gap: 2rem; }
 
-.seccion__indice {
-    color: var(--acento-tinta);
-    margin-bottom: 0.5rem;
-}
-
 .seccion__titulo { font-size: var(--texto-h2); }
 
-.seccion__entradilla {
-    max-width: var(--ancho-medida);
-    margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
-    color: var(--tinta-2);
-    font-size: var(--texto-chico);
-    border-left: 2px solid var(--acento);
-    padding-left: 1rem;
+/* Canal lateral: el sub-indice de la seccion. Vive en la columna izquierda,
+   debajo del titulo sticky, y hace de progreso de lectura. Los estados los
+   pinta el CSS a partir de las clases que marca el JS: la hoja no depende de
+   estilos en linea, que la CSP prohibe. */
+.canal { display: none; }
+
+.canal__lista {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+    border-left: 1px solid var(--linea);
+}
+
+.canal__enlace {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0 0.4rem 0.9rem;
+    margin-left: -1px;
+    border-left: 1px solid transparent;
+    text-decoration: none;
+    color: var(--tinta-3);
+    transition: color 200ms var(--curva), border-color 200ms var(--curva);
+}
+
+.canal__punto {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--linea-fuerte);
+    transition: background-color 200ms var(--curva), transform 200ms var(--curva);
+}
+
+.canal__texto { letter-spacing: 0.08em; }
+
+.canal__enlace:hover,
+.canal__enlace:focus-visible { color: var(--tinta-2); }
+
+.canal__enlace:hover .canal__punto { background: var(--tinta-3); }
+
+/* Ya la paso el lector. */
+.canal__item--visto .canal__enlace { color: var(--tinta-2); }
+.canal__item--visto .canal__punto { background: var(--tinta-3); }
+
+/* En la que va ahora mismo. */
+.canal__enlace[aria-current="true"] {
+    color: var(--tinta);
+    border-left-color: var(--acento);
+}
+
+.canal__enlace[aria-current="true"] .canal__punto {
+    background: var(--acento);
+    transform: scale(1.6);
 }
 
 @media (min-width: 62rem) {
     .seccion__reja {
-        grid-template-columns: 13rem minmax(0, 1fr);
-        column-gap: clamp(3rem, 6vw, 6rem);
+        grid-template-columns: 14rem minmax(0, 1fr);
+        column-gap: clamp(2.5rem, 5vw, 5rem);
     }
 
     .seccion__cabecera {
         position: sticky;
-        top: 2.5rem;
+        top: 3rem;
         align-self: start;
     }
 
     .seccion__titulo { text-wrap: pretty; }
+
+    .canal {
+        display: block;
+        margin-top: 1.75rem;
+    }
+}
+
+@media (min-width: 62rem) and (prefers-reduced-motion: reduce) {
+    .canal__enlace[aria-current="true"] .canal__punto { transform: none; }
 }
 
 
@@ -303,16 +355,9 @@ a { color: inherit; }
 
 .actividad:first-child { padding-top: 0; border-top: 0; }
 
-.actividad__fecha {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-}
+.actividad__fecha { display: flex; align-items: baseline; }
 
 .fecha { color: var(--acento-tinta); }
-
-.actividad__folio { color: var(--tinta-3); }
 
 .actividad__titulo {
     font-size: var(--texto-h3);
@@ -418,13 +463,6 @@ a { color: inherit; }
         grid-template-columns: 13rem minmax(0, 1fr);
         column-gap: 2rem;
     }
-
-    .actividad__fecha {
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 0.35rem;
-    }
 }
 
 
@@ -508,14 +546,6 @@ a { color: inherit; }
 }
 
 .cifra--estimada.cifra--texto { font-weight: 500; }
-
-.nota-numeros {
-    margin-top: 2rem;
-    max-width: var(--ancho-medida);
-    color: var(--tinta-2);
-    border-left: 2px solid var(--linea-fuerte);
-    padding-left: 1rem;
-}
 
 @media (min-width: 48rem) {
     .tabla-numeros { table-layout: fixed; }

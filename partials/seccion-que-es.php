@@ -6,7 +6,6 @@
     <div class="contenedor seccion__reja">
 
         <?php componente('cabecera-seccion', [
-            'indice' => $indice,
             'titulo' => $bloque['titulo'],
             'id'     => 'que-es',
         ]); ?>

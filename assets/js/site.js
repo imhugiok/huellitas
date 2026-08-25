@@ -17,8 +17,8 @@
         }
 
         var objetivos = document.querySelectorAll(
-            '.seccion__cabecera, .seccion__entradilla, .prosa, .actividad, ' +
-            '.tabla-envoltura, .nota-numeros, .aliados__grupo, .pendientes'
+            '.seccion__cabecera, .prosa, .actividad, .tabla-envoltura, ' +
+            '.aliados__grupo, .pendientes'
         );
 
         if (!objetivos.length) {
@@ -96,6 +96,72 @@
         });
     }
 
+    /* --- Canal lateral: en que actividad va el lector -------------------- */
+
+    function activarCanal() {
+        var enlaces = document.querySelectorAll('.canal__enlace');
+
+        if (!enlaces.length || !('IntersectionObserver' in window)) {
+            return;
+        }
+
+        var entradas = [];
+
+        Array.prototype.forEach.call(enlaces, function (enlace) {
+            var destino = document.getElementById(enlace.getAttribute('href').slice(1));
+
+            if (destino) {
+                entradas.push({ enlace: enlace, item: enlace.parentNode, destino: destino });
+            }
+        });
+
+        if (!entradas.length) {
+            return;
+        }
+
+        var visibles = [];
+
+        function pintar() {
+            var activa = entradas.length;
+
+            entradas.forEach(function (entrada, i) {
+                if (visibles.indexOf(entrada.destino.id) !== -1 && i < activa) {
+                    activa = i;
+                }
+            });
+
+            entradas.forEach(function (entrada, i) {
+                if (i === activa) {
+                    entrada.enlace.setAttribute('aria-current', 'true');
+                } else {
+                    entrada.enlace.removeAttribute('aria-current');
+                }
+
+                // "Visto" es todo lo que queda por encima de la activa.
+                entrada.item.classList.toggle('canal__item--visto', i < activa);
+            });
+        }
+
+        var observador = new IntersectionObserver(function (cambios) {
+            cambios.forEach(function (cambio) {
+                var id = cambio.target.id;
+                var pos = visibles.indexOf(id);
+
+                if (cambio.isIntersecting && pos === -1) {
+                    visibles.push(id);
+                } else if (!cambio.isIntersecting && pos !== -1) {
+                    visibles.splice(pos, 1);
+                }
+            });
+
+            pintar();
+        }, { rootMargin: '-15% 0px -55% 0px' });
+
+        entradas.forEach(function (entrada) {
+            observador.observe(entrada.destino);
+        });
+    }
+
     /* --- Desplazamiento suave a las anclas ------------------------------ */
 
     function activarAnclas() {
@@ -131,5 +197,6 @@
 
     activarRevelado();
     activarIndice();
+    activarCanal();
     activarAnclas();
 }());

@@ -42,9 +42,7 @@ return [
     ],
 
     'actividades' => [
-        'titulo'     => 'Qué se hizo',
-        'entradilla' => 'Cada actividad está fechada y enlazada a su publicación original en Instagram. '
-                      . 'Los enlaces abren la evidencia pública, sin intermediarios.',
+        'titulo' => 'Qué se hizo',
 
         // Marcador visible cuando falta la foto de un bloque. Ponlo en false
         // si prefieres que el hueco no se note mientras consigues las imágenes.
@@ -53,6 +51,7 @@ return [
         'items' => [
             [
                 'id'        => 'investigacion',
+                'corto'     => 'Investigación',
                 'titulo'    => 'Investigación de campo en refugios',
                 'fecha'     => 'Septiembre de 2025',
                 'fecha_iso' => '2025-09',
@@ -68,6 +67,7 @@ return [
             ],
             [
                 'id'        => 'yoga',
+                'corto'     => 'Evento de yoga',
                 'titulo'    => 'Evento de adopción responsable',
                 'fecha'     => '16 de octubre de 2025',
                 'fecha_iso' => '2025-10-16',
@@ -88,6 +88,7 @@ return [
             ],
             [
                 'id'        => 'feria',
+                'corto'     => 'Venta con causa',
                 'titulo'    => 'Venta con causa en una feria',
                 'fecha'     => '2025',
                 'fecha_iso' => '2025',
@@ -101,6 +102,7 @@ return [
             ],
             [
                 'id'        => 'entregas',
+                'corto'     => 'Entregas',
                 'titulo'    => 'Entregas recurrentes a refugios',
                 'fecha'     => 'Actividad recurrente',
                 'fecha_iso' => null,
@@ -128,14 +130,12 @@ return [
     ],
 
     'numeros' => [
-        'titulo'     => 'Números',
-        'entradilla' => 'Dos lecturas a propósito: lo que un tercero puede corroborar hoy, y mis '
-                      . 'estimaciones. Ninguna cifra aparece sin decir de cuál de las dos se trata.',
+        'titulo' => 'Números',
 
         // Encabezados de la tabla. Deja 'nota' en null si no quieres subtítulo.
         'cabeceras' => [
             'metrica'    => ['titulo' => 'Métrica',    'nota' => null],
-            'confirmado' => ['titulo' => 'Confirmado', 'nota' => 'verificable'],
+            'confirmado' => ['titulo' => 'Confirmado', 'nota' => null],
             'estimado'   => ['titulo' => 'Estimado',   'nota' => null],
         ],
         'filas' => [
@@ -143,7 +143,7 @@ return [
                 'metrica'    => 'Refugios apoyados',
                 'confirmado' => '2',
                 'estimado'   => null,
-                'fuente'     => 'Confirmado.',
+                'fuente'     => null,
             ],
             [
                 'metrica'    => 'Adopciones',
@@ -170,14 +170,14 @@ return [
                 'metrica'    => 'Publicaciones documentadas',
                 'confirmado' => '11',
                 'estimado'   => null,
-                'fuente'     => 'Confirmado. Incluye 2 publicaciones que entraron por una colaboración '
-                              . 'aceptada en agosto de 2026.',
+                'fuente'     => 'Incluye 2 publicaciones que entraron por una colaboración aceptada en '
+                              . 'agosto de 2026.',
             ],
             [
                 'metrica'    => 'Seguidores en Instagram',
                 'confirmado' => '122',
                 'estimado'   => null,
-                'fuente'     => 'Confirmado.',
+                'fuente'     => null,
             ],
             [
                 'metrica'    => 'Fondos recaudados',
@@ -195,14 +195,9 @@ return [
                 'metrica'    => 'Duración de la primera etapa',
                 'confirmado' => '~5 meses',
                 'estimado'   => null,
-                'fuente'     => 'Septiembre de 2025 a febrero de 2026. Confirmado por las fechas de las '
-                              . 'publicaciones.',
+                'fuente'     => 'Septiembre de 2025 a febrero de 2026, por las fechas de las publicaciones.',
             ],
         ],
-        'nota' => 'Los estimados son cálculos míos y todavía no tienen constancia de los refugios. Cuando '
-                . 'revisé este expediente en agosto de 2026 quité una cifra de croqueta que llevaba meses '
-                . 'circulando y no podía comprobar; la sustituí por los kilos que sí se ven en las fotos. '
-                . 'Prefiero un número chico y verificable. Sigo dando seguimiento a las constancias.',
     ],
 
     'aliados' => [

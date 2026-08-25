@@ -23,7 +23,6 @@ foreach ($item['imagenes'] as $imagen) {
         <?php else: ?>
             <span class="fecha"><?= e($item['fecha']) ?></span>
         <?php endif; ?>
-        <span class="actividad__folio" aria-hidden="true"><?= e($numero) ?></span>
     </div>
 
     <div class="actividad__cuerpo">
