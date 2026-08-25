@@ -1,0 +1,58 @@
+name: Deploy a Hostinger
+
+# Cada push a main publica el sitio por FTP. Mientras los secrets no existan
+# el workflow termina en verde sin hacer nada, para no llenar el repo de
+# ejecuciones rojas antes de tener el subdominio configurado.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-produccion
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Comprobar que los secrets de FTP existen
+        id: secrets
+        env:
+          FTP_SERVIDOR: ${{ secrets.FTP_SERVIDOR }}
+          FTP_USUARIO: ${{ secrets.FTP_USUARIO }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          if [ -z "$FTP_SERVIDOR" ] || [ -z "$FTP_USUARIO" ] || [ -z "$FTP_PASSWORD" ]; then
+            echo "listo=no" >> "$GITHUB_OUTPUT"
+            echo "::notice::Faltan los secrets FTP_SERVIDOR, FTP_USUARIO o FTP_PASSWORD. No se publica nada."
+          else
+            echo "listo=si" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validar la sintaxis de todos los PHP
+        if: steps.secrets.outputs.listo == 'si'
+        run: |
+          shopt -s globstar
+          for archivo in **/*.php; do
+            php -l "$archivo"
+          done
+
+      - name: Subir por FTP
+        if: steps.secrets.outputs.listo == 'si'
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVIDOR }}
+          username: ${{ secrets.FTP_USUARIO }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Carpeta del subdominio en Hostinger. Ajustala en la variable
+          # FTP_RUTA si hPanel te dio otra ruta distinta.
+          server-dir: ${{ vars.FTP_RUTA || 'public_html/huellitas/' }}
+          protocol: ftps
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            README.md
