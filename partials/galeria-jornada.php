@@ -25,6 +25,7 @@ $restantes = $total - count($visibles);
 
     <?php if ($ancha): ?>
 
+        <div class="contenedor">
         <div class="jornada__encabezado">
             <h2 class="jornada__titulo" id="jornada-<?= e($grupo['id']) ?>-titulo">
                 <?= e($grupo['titulo']) ?>
@@ -42,6 +43,7 @@ $restantes = $total - count($visibles);
                 <p class="jornada__cuenta"><?= e((string) $total) ?> fotos</p>
             </div>
         </div>
+        </div>
 
     <?php else: ?>
 
@@ -56,6 +58,7 @@ $restantes = $total - count($visibles);
 
     <?php endif; ?>
 
+    <?php if ($ancha): ?><div class="contenedor"><?php endif; ?>
     <ul class="cuadricula<?= $ancha ? ' cuadricula--ancha' : '' ?>">
         <?php foreach ($visibles as $i => $foto): ?>
             <?php $descripcion = sprintf($alt, $i + 1, mb_strtolower($grupo['titulo'])); ?>
@@ -81,4 +84,5 @@ $restantes = $total - count($visibles);
             </li>
         <?php endif; ?>
     </ul>
+    <?php if ($ancha): ?></div><?php endif; ?>
 </section>

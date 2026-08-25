@@ -178,8 +178,43 @@
             return; // Sin <dialog>: los enlaces abren el archivo, como siempre.
         }
 
-        var foto = visor.querySelector('.visor__foto');
-        var cerrar = visor.querySelector('.visor__cerrar');
+        var foto     = visor.querySelector('.visor__foto');
+        var cerrar   = visor.querySelector('.visor__cerrar');
+        var previa   = visor.querySelector('.visor__flecha--previa');
+        var siguiente = visor.querySelector('.visor__flecha--siguiente');
+        var cuenta   = visor.querySelector('.visor__cuenta');
+
+        // Las flechas se mueven dentro de la jornada abierta, no por toda la
+        // pagina: pasar del ultimo boli al primer perro no tendria sentido.
+        var lista = [];
+        var actual = 0;
+
+        function pintar() {
+            var enlace = lista[actual];
+
+            foto.src = enlace.getAttribute('href');
+            foto.alt = enlace.getAttribute('data-visor') || '';
+
+            previa.disabled = actual === 0;
+            siguiente.disabled = actual === lista.length - 1;
+
+            if (cuenta) {
+                cuenta.textContent = lista.length > 1
+                    ? (actual + 1) + ' / ' + lista.length
+                    : '';
+            }
+        }
+
+        function mover(paso) {
+            var destino = actual + paso;
+
+            if (destino < 0 || destino >= lista.length) {
+                return;
+            }
+
+            actual = destino;
+            pintar();
+        }
 
         document.addEventListener('click', function (evento) {
             var enlace = evento.target.closest('.cuadricula__foto');
@@ -189,13 +224,27 @@
             }
 
             evento.preventDefault();
-            foto.src = enlace.getAttribute('href');
-            foto.alt = enlace.getAttribute('data-visor') || '';
+
+            var grupo = enlace.closest('.cuadricula') || document;
+            lista = Array.prototype.slice.call(grupo.querySelectorAll('.cuadricula__foto'));
+            actual = lista.indexOf(enlace);
+
+            pintar();
             visor.showModal();
         });
 
-        cerrar.addEventListener('click', function () {
-            visor.close();
+        cerrar.addEventListener('click', function () { visor.close(); });
+        previa.addEventListener('click', function () { mover(-1); });
+        siguiente.addEventListener('click', function () { mover(1); });
+
+        visor.addEventListener('keydown', function (evento) {
+            if (evento.key === 'ArrowLeft') {
+                evento.preventDefault();
+                mover(-1);
+            } else if (evento.key === 'ArrowRight') {
+                evento.preventDefault();
+                mover(1);
+            }
         });
 
         // Clic fuera de la foto: el <dialog> ocupa justo la caja de la imagen,
@@ -209,6 +258,7 @@
         // Soltar la imagen al cerrar para no dejarla en memoria.
         visor.addEventListener('close', function () {
             foto.removeAttribute('src');
+            lista = [];
         });
     }
 
