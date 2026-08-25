@@ -581,6 +581,62 @@ a { color: inherit; }
     grid-template-columns: repeat(2, 1fr);
 }
 
+/* --- Version ancha, la de /galeria ------------------------------------- */
+
+/* Cada jornada ocupa el ancho de la ventana: el titulo arriba, una linea que
+   separa, la ficha debajo y las fotos de borde a borde. */
+.galeria-completa { padding-block: clamp(2rem, 1.5rem + 2vw, 3.25rem) 0; }
+
+.jornada--ancha { margin-top: 0; }
+
+.jornada--ancha + .jornada--ancha { margin-top: clamp(3.5rem, 2.5rem + 4vw, 6rem); }
+
+.jornada__encabezado {
+    padding-inline: clamp(1.25rem, 2.5vw, 2.5rem);
+    margin-bottom: clamp(1.25rem, 1rem + 1vw, 2rem);
+}
+
+.jornada--ancha .jornada__titulo {
+    font-size: var(--texto-h2);
+    letter-spacing: -0.03em;
+    margin: 0 0 0.85rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--linea-fuerte);
+}
+
+.jornada__pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 1.5rem;
+}
+
+.jornada--ancha .jornada__texto {
+    margin: 0;
+    max-width: var(--ancho-medida);
+    flex: 1 1 22rem;
+}
+
+.jornada__cuenta {
+    margin-left: auto;
+    color: var(--tinta-3);
+    font-size: var(--texto-meta);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    flex: none;
+}
+
+.cuadricula.cuadricula--ancha {
+    margin-top: 0;
+    gap: 3px;
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+}
+
+.cuadricula--ancha .cuadricula__foto,
+.cuadricula--ancha .cuadricula__foto img { border-radius: 0; }
+
+.cuadricula--ancha .cuadricula__foto img { border: 0; }
+
 .cuadricula__foto {
     display: block;
     border-radius: var(--radio);
@@ -643,6 +699,7 @@ a { color: inherit; }
 
 .galeria__nota {
     margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    margin-bottom: clamp(1rem, 2vw, 2rem);
     padding-top: 1.25rem;
     border-top: 1px solid var(--linea);
     max-width: var(--ancho-medida);

@@ -49,7 +49,7 @@ $sitio['url']         = rtrim($c['sitio']['url'], '/') . '/galeria';
     </div>
 </header>
 
-<main id="contenido">
+<main id="contenido" class="galeria-completa">
     <?php componente('seccion-galeria', ['bloque' => $c['galeria'], 'limite' => null]); ?>
 </main>
 

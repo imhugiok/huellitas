@@ -152,12 +152,20 @@ function fotos_de_galeria(string $grupo): array
     $fotos = [];
 
     foreach ($archivos as $ruta) {
+        $nombre  = basename($ruta);
         $medidas = @getimagesize($ruta);
+        $base    = 'assets/img/galeria/' . $grupo . '/';
+
+        // La grande solo existe para el visor. Si falta, se usa la chica.
+        $grande = is_file($dir . '/grande/' . $nombre)
+            ? asset($base . 'grande/' . $nombre)
+            : asset($base . $nombre);
 
         $fotos[] = [
-            'src'   => asset('assets/img/galeria/' . $grupo . '/' . basename($ruta)),
-            'ancho' => $medidas[0] ?? null,
-            'alto'  => $medidas[1] ?? null,
+            'src'    => asset($base . $nombre),
+            'grande' => $grande,
+            'ancho'  => $medidas[0] ?? null,
+            'alto'   => $medidas[1] ?? null,
         ];
     }
 
