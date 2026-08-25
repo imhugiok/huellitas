@@ -18,7 +18,7 @@
 
         var objetivos = document.querySelectorAll(
             '.seccion__cabecera, .prosa, .actividad, .jornada, .articulo, ' +
-            '.pregunta, .tabla-envoltura, .aliados__grupo, .pendientes'
+            '.pregunta, .asomo__lista, .tabla-envoltura, .aliados__grupo, .pendientes'
         );
 
         if (!objetivos.length) {
@@ -169,6 +169,66 @@
         });
     }
 
+    /* --- Cuadriculas recortadas ------------------------------------------ */
+
+    /* En /galeria las jornadas largas se pintan enteras y aqui se esconden las
+       de mas. Asi, sin JS, salen todas: el recorte es comodidad, no requisito.
+       La ultima casilla visible se convierte en el contador; al pulsarla se
+       destapa el resto y esa casilla vuelve a ser una foto normal. */
+    function activarRecortes() {
+        var cuadriculas = document.querySelectorAll('.cuadricula[data-asomo]');
+
+        Array.prototype.forEach.call(cuadriculas, function (cuadricula) {
+            var asomo = parseInt(cuadricula.getAttribute('data-asomo'), 10);
+            var casillas = cuadricula.children;
+
+            if (!asomo || casillas.length <= asomo) {
+                return;
+            }
+
+            var restantes = casillas.length - asomo + 1;
+            var i;
+
+            for (i = asomo - 1; i < casillas.length; i++) {
+                casillas[i].classList.add('cuadricula__oculta');
+            }
+
+            var marca = casillas[asomo - 1];
+            marca.classList.remove('cuadricula__oculta');
+
+            var enlace = marca.querySelector('.cuadricula__foto');
+
+            if (!enlace) {
+                return;
+            }
+
+            var contador = document.createElement('span');
+            contador.className = 'cuadricula__contador';
+            contador.innerHTML = '<span class="cuadricula__cifra"></span>' +
+                                 '<span class="cuadricula__pie">fotos</span>';
+            contador.firstChild.textContent = '+' + restantes;
+
+            enlace.classList.add('cuadricula__foto--mas');
+            enlace.appendChild(contador);
+
+            enlace.addEventListener('click', function (evento) {
+                if (!enlace.classList.contains('cuadricula__foto--mas')) {
+                    return; // Ya se desplego: de aqui en adelante es una foto.
+                }
+
+                evento.preventDefault();
+                evento.stopPropagation();
+
+                enlace.classList.remove('cuadricula__foto--mas');
+                contador.remove();
+
+                Array.prototype.forEach.call(casillas, function (casilla) {
+                    casilla.classList.remove('cuadricula__oculta');
+                });
+            }, true);
+        });
+    }
+
     /* --- Visor de fotos -------------------------------------------------- */
 
     function activarVisor() {
@@ -295,6 +355,7 @@
         });
     }
 
+    activarRecortes();
     activarRevelado();
     activarIndice();
     activarCanal();

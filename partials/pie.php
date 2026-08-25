@@ -6,7 +6,10 @@
     <div class="contenedor">
 
         <div class="pie__contenido">
-            <p class="pie__marca"><?= e($sitio['nombre']) ?></p>
+            <p class="pie__marca">
+                <?= svg_en_linea('assets/img/logo.svg', 'pie__logo', '') ?>
+                <span><?= e($sitio['nombre']) ?></span>
+            </p>
 
             <ul class="pie__datos">
                 <li>

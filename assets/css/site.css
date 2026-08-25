@@ -660,90 +660,46 @@ a { color: inherit; }
     filter: brightness(1.04);
 }
 
-.cuadricula__mas {
+.cuadricula__oculta { display: none; }
+
+/* La casilla del contador es una foto con el numero encima, no un recuadro
+   vacio. Al desplegarse pierde la clase y vuelve a ser una foto normal. */
+.cuadricula__foto--mas { position: relative; }
+
+.cuadricula__foto--mas img {
+    filter: brightness(0.45);
+    transition: filter 220ms var(--curva);
+}
+
+.cuadricula__foto--mas:hover img,
+.cuadricula__foto--mas:focus-visible img { filter: brightness(0.3); }
+
+.cuadricula__contador {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.1rem;
-    aspect-ratio: 1;
-    border: 1px solid var(--linea-fuerte);
-    border-radius: var(--radio);
-    background: var(--papel-hondo);
-    text-decoration: none;
-    color: var(--tinta-2);
-    transition: background-color 200ms var(--curva), color 200ms var(--curva),
-                border-color 200ms var(--curva);
-}
-
-.cuadricula__mas:hover,
-.cuadricula__mas:focus-visible {
-    background: var(--tinta);
-    border-color: var(--tinta);
-    color: var(--papel);
+    gap: 0.15rem;
+    color: #fff;
+    text-align: center;
+    pointer-events: none;
 }
 
 .cuadricula__cifra {
     font-size: var(--texto-subtitulo);
     font-weight: 600;
     letter-spacing: -0.02em;
+    line-height: 1;
 }
 
 .cuadricula__pie {
     font-size: var(--texto-meta);
     letter-spacing: 0.11em;
     text-transform: uppercase;
+    opacity: 0.85;
 }
-
-/* Despliegue del resto de una jornada. <details> nativo: funciona sin JS. */
-.mas-fotos { margin-top: 1rem; }
-
-.mas-fotos__boton {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.15rem;
-    border: 1px solid var(--linea-fuerte);
-    border-radius: 100px;
-    background: var(--papel-alto);
-    color: var(--tinta-2);
-    font-size: var(--texto-chico);
-    font-weight: 500;
-    cursor: pointer;
-    list-style: none;
-    transition: border-color 180ms var(--curva), color 180ms var(--curva),
-                transform 180ms var(--curva);
-}
-
-.mas-fotos__boton::-webkit-details-marker { display: none; }
-
-.mas-fotos__boton::after {
-    content: '';
-    width: 7px;
-    height: 7px;
-    border-right: 1.5px solid currentColor;
-    border-bottom: 1.5px solid currentColor;
-    rotate: 45deg;
-    translate: 0 -2px;
-    transition: rotate 220ms var(--curva);
-}
-
-.mas-fotos__boton:hover,
-.mas-fotos__boton:focus-visible {
-    border-color: var(--acento);
-    color: var(--tinta);
-    transform: translateY(-1px);
-}
-
-.mas-fotos[open] .mas-fotos__boton::after { rotate: -135deg; translate: 0 2px; }
-
-.mas-fotos__cerrar { display: none; }
-.mas-fotos[open] .mas-fotos__abrir { display: none; }
-.mas-fotos[open] .mas-fotos__cerrar { display: inline; }
-
-.mas-fotos .cuadricula { margin-top: 0.5rem; }
-
-.mas-fotos[open] { margin-bottom: 0.5rem; }
 
 .galeria__salida { margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); }
 
@@ -765,6 +721,63 @@ a { color: inherit; }
     .cuadricula__foto:hover img,
     .cuadricula__foto:focus-visible img { transform: none; }
 }
+
+
+/* --- 8b2. Asomo de Cuidados en la portada ------------------------------ */
+
+.asomo__entrada { max-width: var(--ancho-medida); }
+
+.asomo__lista {
+    list-style: none;
+    padding: 0;
+    margin-top: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+    display: grid;
+    max-width: var(--ancho-laminas);
+    counter-reset: asomo;
+}
+
+.asomo__lista li { counter-increment: asomo; }
+
+.asomo__enlace {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1.15rem 1.25rem 1.15rem 0;
+    border-top: 1px solid var(--linea);
+    text-decoration: none;
+    color: var(--tinta-2);
+    transition: padding-left 240ms var(--curva), color 200ms var(--curva);
+}
+
+.asomo__lista li:last-child .asomo__enlace { border-bottom: 1px solid var(--linea); }
+
+.asomo__enlace:hover,
+.asomo__enlace:focus-visible { padding-left: 1rem; color: var(--tinta); }
+
+.asomo__titulo {
+    font-size: var(--texto-subtitulo);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--tinta);
+    text-wrap: balance;
+}
+
+.asomo__titulo::before {
+    content: counter(asomo, decimal-leading-zero);
+    margin-right: 0.7em;
+    color: var(--acento-tinta);
+    font-size: var(--texto-meta);
+    font-weight: 500;
+    letter-spacing: 0.11em;
+    vertical-align: 0.35em;
+}
+
+.asomo__lede {
+    max-width: var(--ancho-medida);
+    font-size: var(--texto-chico);
+    color: var(--tinta-3);
+}
+
+.asomo__salida { margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.25rem); }
 
 
 /* --- 8c. Cuidados: articulos y preguntas ------------------------------- */
@@ -1050,17 +1063,28 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 
 .pie__contenido {
     display: grid;
-    gap: 1.25rem;
+    gap: clamp(1rem, 0.75rem + 1vw, 1.75rem);
 }
 
 .pie__marca {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
     font-weight: 600;
     letter-spacing: -0.035em;
     /* Una sola linea: el tope lo pone el ancho, no un max-width que partia
-       el nombre en dos. 19 caracteres a 0.42em de ancho medio cada uno. */
-    font-size: clamp(1.5rem, 8vw, 5rem);  /* hasta 80px */
+       el nombre en dos. */
+    font-size: clamp(1.5rem, 8.6vw, 5.625rem);  /* hasta 90px */
     line-height: 1.05;
     white-space: nowrap;
+}
+
+/* Un poco mas bajo que la altura de la letra, para que no la domine. */
+.pie__logo {
+    width: auto;
+    height: 0.82em;
+    color: var(--tinta);
+    flex: none;
 }
 
 .pie__datos {
@@ -1114,8 +1138,11 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 
 
 @media (min-width: 48rem) {
-    .pie__contenido { grid-template-columns: 1fr auto; align-items: start; gap: 2rem; }
-    .pie__datos { justify-items: end; text-align: right; }
+    .pie__datos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 2rem;
+    }
 }
 
 

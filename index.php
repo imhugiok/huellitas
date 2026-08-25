@@ -34,10 +34,10 @@ $secciones = [
     ['id' => 'que-es',       'titulo' => $c['que_es']['titulo']],
     ['id' => 'actividades',  'titulo' => $c['actividades']['titulo']],
     ['id' => 'galeria',      'titulo' => $c['galeria']['titulo'], 'url' => '/galeria'],
+    ['id' => 'cuidados',     'titulo' => $c['cuidados']['titulo']],
     ['id' => 'numeros',      'titulo' => $c['numeros']['titulo']],
     ['id' => 'aliados',      'titulo' => $c['aliados']['titulo']],
     ['id' => 'estado',       'titulo' => $c['estado']['titulo']],
-    ['id' => 'cuidados',     'titulo' => $c['cuidados']['titulo'], 'url' => '/cuidados'],
 ];
 ?>
 <!doctype html>
@@ -56,6 +56,8 @@ $secciones = [
     <?php componente('seccion-actividades', ['bloque' => $c['actividades']]); ?>
 
     <?php componente('seccion-galeria', ['bloque' => $c['galeria'], 'limite' => 8]); ?>
+
+    <?php componente('seccion-cuidados-asomo', ['bloque' => $c['cuidados']]); ?>
 
     <?php componente('seccion-numeros', ['bloque' => $c['numeros']]); ?>
 
