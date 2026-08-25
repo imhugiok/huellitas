@@ -33,7 +33,7 @@ header("Content-Security-Policy: "
 $secciones = [
     ['id' => 'que-es',       'titulo' => $c['que_es']['titulo']],
     ['id' => 'actividades',  'titulo' => $c['actividades']['titulo']],
-    ['id' => 'galeria',      'titulo' => $c['galeria']['titulo']],
+    ['id' => 'galeria',      'titulo' => $c['galeria']['titulo'], 'url' => '/galeria'],
     ['id' => 'numeros',      'titulo' => $c['numeros']['titulo']],
     ['id' => 'aliados',      'titulo' => $c['aliados']['titulo']],
     ['id' => 'estado',       'titulo' => $c['estado']['titulo']],

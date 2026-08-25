@@ -76,8 +76,8 @@ return [
                 'id'        => 'feria',
                 'corto'     => 'Venta con causa',
                 'titulo'    => 'Venta con causa en una feria',
-                'fecha'     => '2025',
-                'fecha_iso' => '2025',
+                'fecha'     => '17 de septiembre de 2025',
+                'fecha_iso' => '2025-09-17',
                 'texto'     => 'Venta de bolis hecha personalmente para recaudar fondos, entregados directo '
                              . 'al refugio.',
                 'imagenes'  => [
@@ -116,7 +116,9 @@ return [
                                    . 'no hubo presupuesto para nada más.',
                     ],
                 ],
-                'enlaces'   => [],
+                'enlaces'   => [
+                    ['url' => 'https://www.instagram.com/p/DPX-j8cgF0Y/', 'texto' => 'Publicación de la campaña'],
+                ],
             ],
             [
                 'id'        => 'yoga',

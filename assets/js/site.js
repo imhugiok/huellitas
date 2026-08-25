@@ -58,11 +58,18 @@
         var porId = {};
 
         Array.prototype.forEach.call(enlaces, function (enlace) {
-            var id = enlace.getAttribute('href').slice(1);
-            var seccion = document.getElementById(id);
+            var href = enlace.getAttribute('href');
+
+            // Las entradas que llevan a otra pagina no participan: si no, un
+            // href="/galeria" acababa marcando la seccion #galeria de aqui.
+            if (href.charAt(0) !== '#') {
+                return;
+            }
+
+            var seccion = document.getElementById(href.slice(1));
 
             if (seccion) {
-                porId[id] = enlace;
+                porId[href.slice(1)] = enlace;
             }
         });
 

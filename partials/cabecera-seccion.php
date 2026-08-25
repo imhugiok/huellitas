@@ -6,9 +6,13 @@
 /** @var string $titulo */
 /** @var string $id */
 /** @var array|null $canal  Items ['ancla' => '#id', 'texto' => '...'] */
+/** @var bool|null $tituloOculto  El titulo sigue ahi para lectores de pantalla,
+ *                                pero no se dibuja: lo usa la pagina de galeria,
+ *                                donde el h1 ya dice lo mismo. */
 ?>
 <div class="seccion__cabecera">
-    <h2 class="seccion__titulo" id="<?= e($id) ?>-titulo"><?= e($titulo) ?></h2>
+    <h2 class="seccion__titulo<?= !empty($tituloOculto) ? ' visualmente-oculto' : '' ?>"
+        id="<?= e($id) ?>-titulo"><?= e($titulo) ?></h2>
 
     <?php if (!empty($canal)): ?>
         <nav class="canal" aria-label="Actividades de esta sección">

@@ -217,6 +217,17 @@ a { color: inherit; }
 
 .indice__titulo { font-size: var(--texto-chico); letter-spacing: 0; text-transform: none; }
 
+.indice__enlace--pagina .indice__titulo { color: var(--acento-tinta); font-weight: 500; }
+
+.indice__flecha {
+    display: inline-block;
+    margin-left: 0.3em;
+    transition: transform 200ms var(--curva);
+}
+
+.indice__enlace--pagina:hover .indice__flecha,
+.indice__enlace--pagina:focus-visible .indice__flecha { transform: translateX(3px); }
+
 .indice__enlace[aria-current="true"] { color: var(--tinta); }
 
 .indice__enlace[aria-current="true"] .indice__titulo { font-weight: 600; }

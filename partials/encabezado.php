@@ -17,10 +17,15 @@
         <nav class="indice" aria-label="Índice del expediente">
             <ol class="indice__lista">
                 <?php foreach ($secciones as $i => $seccion): ?>
+                    <?php $fuera = isset($seccion['url']); ?>
                     <li class="indice__item">
-                        <a class="indice__enlace" href="#<?= e($seccion['id']) ?>">
+                        <a class="indice__enlace<?= $fuera ? ' indice__enlace--pagina' : '' ?>"
+                           href="<?= e($fuera ? $seccion['url'] : '#' . $seccion['id']) ?>">
                             <span class="indice__numero"><?= e(str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT)) ?></span>
-                            <span class="indice__titulo"><?= e($seccion['titulo']) ?></span>
+                            <span class="indice__titulo">
+                                <?= e($seccion['titulo']) ?><?php if ($fuera): ?><span class="indice__flecha" aria-hidden="true">→</span><?php endif; ?>
+                            </span>
+                            <?php if ($fuera): ?><span class="visualmente-oculto">(página aparte)</span><?php endif; ?>
                         </a>
                     </li>
                 <?php endforeach; ?>

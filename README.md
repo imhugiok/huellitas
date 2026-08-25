@@ -161,14 +161,15 @@ Con XAMPP ya instalado:
 
 ```bash
 cd huellitas.hugorivera.me
-C:/xampp/php/php -S 127.0.0.1:8765 -t .
+C:/xampp/php/php -S 127.0.0.1:8765 router.php
 ```
 
 Y abre <http://127.0.0.1:8765/>.
 
-Ojo: el servidor de PHP no lee `.htaccess`, así que en local `/sitemap.xml` no
-funciona (usa `/sitemap.php`) y las carpetas protegidas sí son accesibles. Eso
-solo pasa en local.
+**El `router.php` del final no es opcional.** El servidor de PHP no lee
+`.htaccess`, así que sin él `/galeria` y `/sitemap.xml` dan 404 en local aunque
+en Hostinger funcionen, y las carpetas protegidas quedan accesibles. El router
+imita esas tres reglas y no se usa nunca en producción.
 
 ---
 
@@ -183,11 +184,27 @@ robots.txt
 data/contenido.php     TODO el contenido. El único archivo que sueles editar.
 lib/helpers.php        escapado, componentes, cache-busting de assets
 partials/              componentes de la vista (sin texto de contenido)
+galeria.php            galería completa; en producción se sirve como /galeria
+router.php             solo para el servidor local: imita las reglas del .htaccess
 assets/css/site.css    hoja única, con tokens al inicio
 assets/js/site.js      mejora progresiva; la página funciona sin JS
 assets/img/            logo.svg (el real, insertado en línea y coloreado por
                        CSS), og.png, iconos y fotos de las actividades
 ```
+
+### La galería
+
+Las fotos **no se listan en `contenido.php`**. `fotos_de_galeria()` lee
+`assets/img/galeria/<jornada>/` y las ordena por nombre de archivo. Para
+agregar más, copias los `.webp` en la carpeta que toque y aparecen solas.
+
+Las jornadas (título, fecha, texto) sí viven en `galeria.grupos` de
+`contenido.php`. Para una jornada nueva, agregas el grupo y creas su carpeta.
+
+**El nombre del archivo decide qué sale en la portada.** La página principal
+enseña solo las 7 primeras de cada jornada y pone un "+N" en la octava casilla,
+que lleva a `/galeria`. Si quieres que una foto salga en portada, renómbrala
+para que quede al principio.
 
 ### Decisiones que conviene no deshacer
 

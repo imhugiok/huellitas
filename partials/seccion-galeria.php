@@ -5,10 +5,11 @@
  */
 /** @var array $bloque */
 /** @var int|null $limite   Fotos por jornada en la portada; null = todas. */
-/** @var bool $conCabecera  false en la pagina dedicada, que trae la suya. */
+$limite = $limite ?? null;
 
-$limite      = $limite      ?? null;
-$conCabecera = $conCabecera ?? true;
+// En /galeria el h1 de la pagina ya dice "Galeria": repetirlo en la columna
+// izquierda sobra. El canal de jornadas si se queda.
+$tituloOculto = $limite === null;
 
 $grupos = [];
 
@@ -28,8 +29,9 @@ if ($grupos === []) {
     <div class="contenedor seccion__reja">
 
         <?php componente('cabecera-seccion', [
-            'titulo' => $bloque['titulo'],
-            'id'     => 'galeria',
+            'titulo'       => $bloque['titulo'],
+            'id'           => 'galeria',
+            'tituloOculto' => $tituloOculto,
             'canal'  => array_map(static fn (array $g): array => [
                 'ancla' => 'jornada-' . $g['id'],
                 'texto' => $g['corto'],
