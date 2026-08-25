@@ -1,0 +1,6 @@
+# El servidor es Linux: todo el texto viaja con LF, sin importar en qué
+# máquina se edite. Evita que Windows meta CRLF en los archivos PHP.
+* text=auto eol=lf
+
+*.webp binary
+*.png  binary

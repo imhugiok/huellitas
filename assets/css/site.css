@@ -1,0 +1,725 @@
+/* =========================================================================
+   Huellitas al Corazon — hoja de estilos unica
+   Direccion: expediente en papel calido. Tinta negra, papel hueso, un solo
+   acento (el naranja del logo). Una sola familia tipografica: los metadatos
+   se distinguen por tamano, tracking y color, no por cambiar de fuente.
+   ========================================================================= */
+
+/* --- 1. Reset ---------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+img, svg { display: block; max-width: 100%; height: auto; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+button, input { font: inherit; color: inherit; }
+
+
+/* --- 2. Tokens --------------------------------------------------------- */
+
+:root {
+    /* Color */
+    --papel:        #faf8f5;
+    --papel-alto:   #ffffff;
+    --papel-hondo:  #f2ede6;
+    --tinta:        #14110f;   /* 17.7:1 sobre papel */
+    --tinta-2:      #3d3733;   /* 11.0:1 */
+    --tinta-3:      #6b615a;   /*  5.7:1 — minimo para texto normal */
+    --acento:       #fd5700;   /* naranja del logo: decorativo o texto grande */
+    --acento-tinta: #b83c00;   /*  5.4:1 — el que si puede llevar texto pequeno */
+    --linea:        rgb(20 17 15 / 0.13);
+    --linea-fuerte: rgb(20 17 15 / 0.26);
+
+    /* Tipografia: una sola familia en todo el sitio */
+    --sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system,
+            "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    --texto-base:   clamp(1.0625rem, 1.015rem + 0.24vw, 1.1875rem); /* 17 -> 19px */
+    --texto-chico:  clamp(0.9375rem, 0.91rem + 0.14vw, 1rem);
+    --texto-meta:   0.8125rem;
+    --texto-h1:     clamp(2.625rem, 1.75rem + 4.1vw, 5rem);
+    --texto-h2:     clamp(1.75rem, 1.45rem + 1.35vw, 2.375rem);
+    --texto-h3:     clamp(1.1875rem, 1.09rem + 0.5vw, 1.4375rem);
+    --texto-cifra:  clamp(1.625rem, 1.25rem + 1.7vw, 2.5rem);
+
+    /* Ritmo */
+    --ancho-medida: 36rem;
+    --espacio-seccion: clamp(3.75rem, 2.5rem + 5.5vw, 7.5rem);
+    --radio: 3px;
+
+    /* Movimiento */
+    --curva: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* --- 3. Base ----------------------------------------------------------- */
+
+body {
+    background-color: var(--papel);
+    color: var(--tinta);
+    font-family: var(--sans);
+    font-size: var(--texto-base);
+    line-height: 1.6;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Grano de papel: una tesela chica que el navegador rasteriza una sola vez. */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+}
+
+main, header, footer { position: relative; z-index: 1; }
+
+h1, h2, h3 { line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; text-wrap: balance; }
+
+p { text-wrap: pretty; }
+
+a { color: inherit; }
+
+:focus-visible {
+    outline: 2px solid var(--acento-tinta);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+::selection { background: rgb(253 87 0 / 0.18); }
+
+
+/* --- 4. Utilidades ----------------------------------------------------- */
+
+.contenedor {
+    width: min(100% - 2.5rem, 72rem);
+    margin-inline: auto;
+}
+
+.visualmente-oculto {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+.saltar-al-contenido {
+    position: absolute;
+    top: 0.5rem; left: 0.5rem;
+    z-index: 99;
+    padding: 0.6rem 1rem;
+    background: var(--tinta);
+    color: var(--papel);
+    border-radius: var(--radio);
+    text-decoration: none;
+    transform: translateY(-160%);
+    transition: transform 160ms var(--curva);
+}
+
+.saltar-al-contenido:focus-visible { transform: translateY(0); }
+
+/*
+ * Etiquetas de metadato. Antes esto era una monoespaciada; ahora es la misma
+ * familia del cuerpo, diferenciada por tamano, versalitas y tracking.
+ */
+.fecha, .seccion__indice, .actividad__folio, .col__nota,
+.aliados__rol, .pendientes__titulo, .indice__numero {
+    font-size: var(--texto-meta);
+    font-weight: 500;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    line-height: 1.3;
+}
+
+
+/* --- 5. Encabezado ----------------------------------------------------- */
+
+.encabezado {
+    padding-block: clamp(1.5rem, 1rem + 2vw, 2.75rem) clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+    border-bottom: 1px solid var(--linea-fuerte);
+}
+
+.encabezado__marca {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.marca__logo {
+    width: clamp(228px, 39vw, 312px);
+    height: auto;
+    color: var(--tinta);
+    flex: none;
+}
+
+.titulo-principal {
+    font-size: var(--texto-h1);
+    letter-spacing: -0.035em;
+    max-width: 12ch;
+}
+
+.subtitulo {
+    margin-top: 1rem;
+    max-width: 34rem;
+    color: var(--tinta-2);
+    font-size: clamp(1.125rem, 1.03rem + 0.5vw, 1.375rem);
+    line-height: 1.45;
+    text-wrap: balance;
+}
+
+/* Indice del expediente: navegacion interna con cara de sumario. */
+.indice { margin-top: clamp(2.25rem, 1.5rem + 3vw, 3.5rem); }
+
+.indice__lista {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--linea);
+}
+
+.indice__item { border-bottom: 1px solid var(--linea); }
+
+.indice__enlace {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.7rem 0.25rem;
+    text-decoration: none;
+    color: var(--tinta-2);
+    transition: color 160ms var(--curva), padding-left 220ms var(--curva);
+}
+
+.indice__enlace:hover,
+.indice__enlace:focus-visible { color: var(--tinta); padding-left: 0.75rem; }
+
+.indice__numero { color: var(--acento-tinta); flex: none; }
+
+.indice__titulo { font-size: var(--texto-chico); letter-spacing: 0; text-transform: none; }
+
+.indice__enlace[aria-current="true"] { color: var(--tinta); }
+
+.indice__enlace[aria-current="true"] .indice__titulo { font-weight: 600; }
+
+@media (min-width: 48rem) {
+    .encabezado__marca { flex-direction: row; align-items: flex-start; gap: 2.25rem; }
+    .marca__logo { margin-top: 0.4rem; }
+    .indice__lista { grid-template-columns: repeat(5, 1fr); border-top: 0; }
+    .indice__item { border-bottom: 0; border-top: 2px solid var(--linea-fuerte); }
+    .indice__enlace { flex-direction: column; gap: 0.35rem; padding: 0.75rem 0 0; }
+    .indice__enlace:hover, .indice__enlace:focus-visible { padding-left: 0; }
+}
+
+
+/* --- 6. Secciones ------------------------------------------------------ */
+
+.seccion { padding-block: var(--espacio-seccion); }
+
+.seccion + .seccion { border-top: 1px solid var(--linea); }
+
+.seccion__reja { display: grid; gap: 2rem; }
+
+.seccion__indice {
+    color: var(--acento-tinta);
+    margin-bottom: 0.5rem;
+}
+
+.seccion__titulo { font-size: var(--texto-h2); }
+
+.seccion__entradilla {
+    max-width: var(--ancho-medida);
+    margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
+    color: var(--tinta-2);
+    font-size: var(--texto-chico);
+    border-left: 2px solid var(--acento);
+    padding-left: 1rem;
+}
+
+@media (min-width: 62rem) {
+    .seccion__reja {
+        grid-template-columns: 13rem minmax(0, 1fr);
+        column-gap: clamp(3rem, 6vw, 6rem);
+    }
+
+    .seccion__cabecera {
+        position: sticky;
+        top: 2.5rem;
+        align-self: start;
+    }
+
+    .seccion__titulo { text-wrap: pretty; }
+}
+
+
+/* --- 7. Prosa ---------------------------------------------------------- */
+
+.prosa { max-width: var(--ancho-medida); }
+
+.prosa p + p { margin-top: 1.15em; }
+
+.prosa__destacado {
+    font-size: clamp(1.1875rem, 1.09rem + 0.55vw, 1.5rem);
+    line-height: 1.45;
+    letter-spacing: -0.011em;
+}
+
+.cuenta {
+    color: var(--acento-tinta);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: rgb(184 60 0 / 0.35);
+    transition: text-decoration-color 160ms var(--curva);
+}
+
+.cuenta:hover { text-decoration-color: currentColor; }
+
+
+/* --- 8. Actividades ---------------------------------------------------- */
+
+.actividades {
+    display: grid;
+    gap: clamp(2.5rem, 1.75rem + 3vw, 4rem);
+}
+
+.actividad {
+    display: grid;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--linea);
+}
+
+.actividad:first-child { padding-top: 0; border-top: 0; }
+
+.actividad__fecha {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.fecha { color: var(--acento-tinta); }
+
+.actividad__folio { color: var(--tinta-3); }
+
+.actividad__titulo {
+    font-size: var(--texto-h3);
+    margin-bottom: 0.5rem;
+}
+
+.actividad__texto {
+    max-width: var(--ancho-medida);
+    color: var(--tinta-2);
+}
+
+/* Laminas: la foto y su pie, como en un expediente con anexos. */
+.laminas {
+    margin-top: 1.75rem;
+    display: grid;
+    gap: 1.5rem;
+    max-width: var(--ancho-medida);
+}
+
+.lamina { margin: 0; }
+
+.lamina img {
+    width: 100%;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    background: var(--papel-hondo);
+}
+
+.laminas--sola img { max-height: 30rem; object-fit: cover; object-position: center; }
+
+.lamina__pie {
+    margin-top: 0.7rem;
+    color: var(--tinta-3);
+    font-size: var(--texto-chico);
+    line-height: 1.5;
+}
+
+@media (min-width: 40rem) {
+    .laminas--par { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .laminas--par img { aspect-ratio: 3 / 4; object-fit: cover; }
+}
+
+/* Marcador discreto para los bloques que todavia no tienen foto. */
+.anexo-pendiente {
+    margin-top: 1.5rem;
+    max-width: var(--ancho-medida);
+    padding: 0.7rem 0 0.7rem 1rem;
+    border-left: 2px dashed var(--linea-fuerte);
+    color: var(--tinta-3);
+    font-size: var(--texto-chico);
+}
+
+.anexo-pendiente__archivo {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--tinta-2);
+    word-break: break-all;
+}
+
+.enlaces {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+}
+
+/* El enlace a la publicacion es la pieza mas importante del bloque: se ve. */
+.enlace-evidencia {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--linea-fuerte);
+    border-radius: 100px;
+    background: var(--papel-alto);
+    text-decoration: none;
+    font-size: var(--texto-chico);
+    font-weight: 500;
+    transition: border-color 180ms var(--curva), transform 180ms var(--curva),
+                box-shadow 180ms var(--curva);
+}
+
+.enlace-evidencia:hover,
+.enlace-evidencia:focus-visible {
+    border-color: var(--acento);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px rgb(20 17 15 / 0.07);
+}
+
+.enlace-evidencia__icono {
+    width: 17px; height: 17px;
+    flex: none;
+    fill: none;
+    stroke: var(--acento-tinta);
+    stroke-width: 1.6;
+}
+
+@media (min-width: 48rem) {
+    .actividad {
+        /* Cabe "16 de octubre de 2025" en versalitas sin partirse en dos. */
+        grid-template-columns: 13rem minmax(0, 1fr);
+        column-gap: 2rem;
+    }
+
+    .actividad__fecha {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0.35rem;
+    }
+}
+
+
+/* --- 9. Tabla de numeros ----------------------------------------------- */
+
+.tabla-envoltura { overflow-x: auto; }
+
+.tabla-numeros {
+    width: 100%;
+    font-variant-numeric: tabular-nums;
+}
+
+.tabla-numeros thead th {
+    text-align: left;
+    vertical-align: bottom;
+    padding: 0 0 0.75rem;
+    border-bottom: 2px solid var(--tinta);
+    font-size: var(--texto-chico);
+    font-weight: 600;
+}
+
+.col__nota {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--tinta-3);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+}
+
+.tabla-numeros tbody tr { border-bottom: 1px solid var(--linea); }
+
+.tabla-numeros tbody th,
+.tabla-numeros tbody td {
+    text-align: left;
+    vertical-align: baseline;
+    padding: 1.125rem 1rem 1.125rem 0;
+}
+
+.metrica__nombre {
+    display: block;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.metrica__fuente {
+    display: block;
+    margin-top: 0.3rem;
+    max-width: 30rem;
+    color: var(--tinta-3);
+    font-size: var(--texto-chico);
+    font-weight: 400;
+    line-height: 1.45;
+}
+
+.cifra {
+    font-size: var(--texto-cifra);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+
+.cifra--confirmada { color: var(--tinta); }
+
+/* El estimado se lee igual de bien, pero se ve provisional a proposito. */
+.cifra--estimada {
+    color: var(--tinta-2);
+    font-weight: 500;
+    border-bottom: 2px dashed var(--linea-fuerte);
+    padding-bottom: 0.15rem;
+}
+
+.cifra--vacia { color: var(--tinta-3); font-weight: 400; }
+
+/* Valores que son texto, no numero: no compiten con las cifras. */
+.cifra--texto {
+    font-size: var(--texto-chico);
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.35;
+    display: inline-block;
+}
+
+.cifra--estimada.cifra--texto { font-weight: 500; }
+
+.nota-numeros {
+    margin-top: 2rem;
+    max-width: var(--ancho-medida);
+    color: var(--tinta-2);
+    border-left: 2px solid var(--linea-fuerte);
+    padding-left: 1rem;
+}
+
+@media (min-width: 48rem) {
+    .tabla-numeros { table-layout: fixed; }
+    .col-metrica     { width: 46%; }
+    .col-confirmado  { width: 27%; }
+    .col-estimado    { width: 27%; }
+}
+
+/* En movil la tabla se vuelve una ficha por metrica. */
+@media (max-width: 47.999rem) {
+    .tabla-numeros thead {
+        position: absolute;
+        width: 1px; height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+    }
+
+    .tabla-numeros,
+    .tabla-numeros tbody,
+    .tabla-numeros tr,
+    .tabla-numeros th,
+    .tabla-numeros td { display: block; width: auto; }
+
+    .tabla-numeros tbody tr {
+        margin-bottom: 0.875rem;
+        padding: 1.125rem 1.25rem;
+        border: 1px solid var(--linea);
+        border-radius: var(--radio);
+        background: var(--papel-alto);
+    }
+
+    .tabla-numeros tbody th { padding: 0 0 0.875rem; }
+
+    .tabla-numeros tbody td {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.625rem 0;
+        border-top: 1px solid var(--linea);
+    }
+
+    .tabla-numeros tbody td::before {
+        content: attr(data-col);
+        font-size: var(--texto-meta);
+        font-weight: 500;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        color: var(--tinta-3);
+        flex: none;
+    }
+
+    .metrica__fuente { max-width: none; }
+}
+
+
+/* --- 10. Aliados ------------------------------------------------------- */
+
+.aliados {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--linea);
+    max-width: 44rem;
+}
+
+.aliados__grupo {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--linea);
+}
+
+.aliados__rol { color: var(--tinta-3); }
+
+.aliados__lista {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+}
+
+.aliado {
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid var(--linea-fuerte);
+    padding-bottom: 1px;
+    transition: color 160ms var(--curva), border-color 160ms var(--curva);
+}
+
+a.aliado:hover,
+a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento); }
+
+.aliado--sin-enlace { border-bottom-style: dotted; color: var(--tinta-2); }
+
+@media (min-width: 40rem) {
+    .aliados__grupo { grid-template-columns: 12rem minmax(0, 1fr); align-items: baseline; gap: 1.5rem; }
+}
+
+
+/* --- 11. Estado actual ------------------------------------------------- */
+
+.estado-actual {
+    display: grid;
+    gap: clamp(2rem, 1.5rem + 2vw, 3rem);
+}
+
+.pendientes {
+    padding: 1.5rem;
+    border: 1px solid var(--linea-fuerte);
+    border-radius: var(--radio);
+    background: var(--papel-alto);
+    align-self: start;
+}
+
+.pendientes__titulo {
+    color: var(--tinta-3);
+    margin-bottom: 0.875rem;
+}
+
+.pendientes__lista {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.7rem;
+    font-size: var(--texto-chico);
+    color: var(--tinta-2);
+}
+
+.pendientes__lista li::marker { color: var(--acento); }
+
+@media (min-width: 62rem) {
+    .estado-actual { grid-template-columns: minmax(0, 1fr) 20rem; }
+}
+
+
+/* --- 12. Pie ----------------------------------------------------------- */
+
+.pie {
+    padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
+    border-top: 2px solid var(--tinta);
+}
+
+.pie__nota {
+    color: var(--tinta-3);
+    font-size: var(--texto-chico);
+}
+
+.pie__firma {
+    margin-top: 0.5rem;
+    color: var(--tinta-2);
+    font-size: var(--texto-chico);
+    font-style: italic;
+}
+
+
+/* --- 13. Movimiento ---------------------------------------------------- */
+
+/* Aparicion al entrar en pantalla. Solo se activa si el JS marca el body;
+   sin JS todo queda visible desde el inicio. */
+.js-movimiento .revelar {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 600ms var(--curva), transform 600ms var(--curva);
+}
+
+.js-movimiento .revelar.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Escalonado dentro de cada grupo, sin estilos en linea. */
+.js-movimiento .actividad:nth-child(2),
+.js-movimiento .aliados__grupo:nth-child(2) { transition-delay: 70ms; }
+
+.js-movimiento .actividad:nth-child(3),
+.js-movimiento .aliados__grupo:nth-child(3) { transition-delay: 140ms; }
+
+.js-movimiento .actividad:nth-child(n + 4) { transition-delay: 210ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .js-movimiento .revelar { opacity: 1; transform: none; }
+}
+
+
+/* --- 14. Impresion ----------------------------------------------------- */
+
+@media print {
+    body::before, .indice, .saltar-al-contenido { display: none; }
+    body { background: #fff; font-size: 11pt; }
+    .seccion { padding-block: 1.5rem; break-inside: avoid; }
+    .actividad, .tabla-numeros tbody tr, .lamina { break-inside: avoid; }
+
+    /* En papel el enlace no se puede tocar: se imprime la URL completa. */
+    .enlace-evidencia { border: 0; padding: 0; }
+    .enlace-evidencia::after {
+        content: " — " attr(href);
+        font-size: 9pt;
+        word-break: break-all;
+    }
+}
