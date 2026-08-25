@@ -17,6 +17,10 @@ Options -Indexes
 
     # El sitemap se genera con la fecha real de /data/contenido.php.
     RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+    # /galeria sin extension. El servidor de PHP en local no lee .htaccess,
+    # asi que ahi hay que entrar por /galeria.php.
+    RewriteRule ^galeria/?$ galeria.php [L]
 </IfModule>
 
 <IfModule mod_headers.c>

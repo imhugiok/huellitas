@@ -54,7 +54,7 @@ $secciones = [
 
     <?php componente('seccion-actividades', ['bloque' => $c['actividades']]); ?>
 
-    <?php componente('seccion-galeria', ['bloque' => $c['galeria']]); ?>
+    <?php componente('seccion-galeria', ['bloque' => $c['galeria'], 'limite' => 8]); ?>
 
     <?php componente('seccion-numeros', ['bloque' => $c['numeros']]); ?>
 
@@ -63,6 +63,8 @@ $secciones = [
     <?php componente('seccion-estado', ['bloque' => $c['estado']]); ?>
 
 </main>
+
+<?php componente('visor'); ?>
 
 <?php componente('pie', ['pie' => $c['pie'], 'sitio' => $c['sitio']]); ?>
 

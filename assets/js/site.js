@@ -162,6 +162,49 @@
         });
     }
 
+    /* --- Visor de fotos -------------------------------------------------- */
+
+    function activarVisor() {
+        var visor = document.querySelector('.visor');
+
+        if (!visor || typeof visor.showModal !== 'function') {
+            return; // Sin <dialog>: los enlaces abren el archivo, como siempre.
+        }
+
+        var foto = visor.querySelector('.visor__foto');
+        var cerrar = visor.querySelector('.visor__cerrar');
+
+        document.addEventListener('click', function (evento) {
+            var enlace = evento.target.closest('.cuadricula__foto');
+
+            if (!enlace || evento.metaKey || evento.ctrlKey || evento.shiftKey || evento.button !== 0) {
+                return;
+            }
+
+            evento.preventDefault();
+            foto.src = enlace.getAttribute('href');
+            foto.alt = enlace.getAttribute('data-visor') || '';
+            visor.showModal();
+        });
+
+        cerrar.addEventListener('click', function () {
+            visor.close();
+        });
+
+        // Clic fuera de la foto: el <dialog> ocupa justo la caja de la imagen,
+        // asi que cualquier clic sobre el propio dialog es "fuera".
+        visor.addEventListener('click', function (evento) {
+            if (evento.target === visor) {
+                visor.close();
+            }
+        });
+
+        // Soltar la imagen al cerrar para no dejarla en memoria.
+        visor.addEventListener('close', function () {
+            foto.removeAttribute('src');
+        });
+    }
+
     /* --- Desplazamiento suave a las anclas ------------------------------ */
 
     function activarAnclas() {
@@ -172,7 +215,7 @@
         document.addEventListener('click', function (evento) {
             var enlace = evento.target.closest('a[href^="#"]');
 
-            if (!enlace || enlace.getAttribute('href') === '#') {
+            if (!enlace || enlace.getAttribute('href') === '#' || evento.defaultPrevented) {
                 return;
             }
 
@@ -198,5 +241,6 @@
     activarRevelado();
     activarIndice();
     activarCanal();
+    activarVisor();
     activarAnclas();
 }());

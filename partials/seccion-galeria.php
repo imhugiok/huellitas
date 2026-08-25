@@ -1,9 +1,14 @@
 <?php
 /**
- * Galeria por jornada. Las fotos no se listan aqui ni en contenido.php: se
- * leen de /assets/img/galeria/<grupo>. Dejas el archivo y aparece.
+ * Galeria. Las fotos no se listan en contenido.php: se leen de
+ * /assets/img/galeria/<grupo>. Dejas el archivo y aparece.
  */
 /** @var array $bloque */
+/** @var int|null $limite   Fotos por jornada en la portada; null = todas. */
+/** @var bool $conCabecera  false en la pagina dedicada, que trae la suya. */
+
+$limite      = $limite      ?? null;
+$conCabecera = $conCabecera ?? true;
 
 $grupos = [];
 
@@ -34,38 +39,18 @@ if ($grupos === []) {
 
         <div class="seccion__contenido">
             <?php foreach ($grupos as $grupo): ?>
-                <section class="jornada" id="jornada-<?= e($grupo['id']) ?>"
-                         aria-labelledby="jornada-<?= e($grupo['id']) ?>-titulo">
-
-                    <?php if ($grupo['fecha_iso'] !== null): ?>
-                        <time class="fecha" datetime="<?= e($grupo['fecha_iso']) ?>"><?= e($grupo['fecha']) ?></time>
-                    <?php else: ?>
-                        <span class="fecha"><?= e($grupo['fecha']) ?></span>
-                    <?php endif; ?>
-
-                    <h3 class="jornada__titulo" id="jornada-<?= e($grupo['id']) ?>-titulo">
-                        <?= e($grupo['titulo']) ?>
-                    </h3>
-
-                    <p class="jornada__texto"><?= e($grupo['texto']) ?></p>
-
-                    <ul class="cuadricula">
-                        <?php foreach ($grupo['fotos'] as $i => $foto): ?>
-                            <li>
-                                <a class="cuadricula__foto" href="<?= e($foto['src']) ?>"
-                                   target="_blank" rel="noopener noreferrer">
-                                    <img
-                                        src="<?= e($foto['src']) ?>"
-                                        alt="<?= e(sprintf($bloque['alt'], $i + 1, mb_strtolower($grupo['titulo']))) ?>"
-                                        <?= $foto['ancho'] ? 'width="' . (int) $foto['ancho'] . '"' : '' ?>
-                                        <?= $foto['alto'] ? 'height="' . (int) $foto['alto'] . '"' : '' ?>
-                                        loading="lazy" decoding="async">
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </section>
+                <?php componente('galeria-jornada', [
+                    'grupo'  => $grupo,
+                    'alt'    => $bloque['alt'],
+                    'limite' => $limite,
+                ]); ?>
             <?php endforeach; ?>
+
+            <?php if ($limite !== null): ?>
+                <p class="galeria__salida">
+                    <a class="enlace-texto" href="/galeria"><?= e($bloque['enlace_completa']) ?></a>
+                </p>
+            <?php endif; ?>
 
             <p class="galeria__nota"><?= e($bloque['nota']) ?></p>
         </div>

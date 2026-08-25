@@ -82,10 +82,17 @@ return [
                              . 'al refugio.',
                 'imagenes'  => [
                     [
+                        'archivo' => 'venta-bolis-qr',
+                        'alt'     => 'Boli con una etiqueta que lleva un código QR y la dirección '
+                                   . 'byhugiok.com, sostenido por un comprador.',
+                        'pie'     => 'Cada boli iba con su etiqueta y un QR a la página del proyecto, que '
+                                   . 'entonces vivía en byhugiok.com.',
+                    ],
+                    [
                         'archivo' => 'venta-bolis',
-                        'alt'     => 'Hielera abierta llena de bolis de colores durante la venta en la escuela.',
-                        'pie'     => 'La hielera en plena venta. Los bolis se hicieron a mano; lo recaudado '
-                                   . 'se entregó al refugio.',
+                        'alt'     => 'Hielera abierta llena de bolis durante la venta en la escuela.',
+                        'pie'     => 'La hielera en plena venta. Los bolis se hicieron a mano; lo '
+                                   . 'recaudado se entregó al refugio.',
                     ],
                 ],
                 'enlaces'   => [
@@ -234,7 +241,11 @@ return [
     ],
 
     'galeria' => [
-        'titulo' => 'Galería',
+        'titulo'      => 'Galería',
+        'entradilla'  => 'Todas las fotos del proyecto, por jornada y con su fecha original.',
+        'descripcion' => 'Archivo fotográfico de Huellitas al Corazón: venta de bolis, visitas al '
+                       . 'refugio, campaña de donación de croquetas y evento de adopción responsable.',
+        'enlace_completa' => 'Ver todas las fotos',
 
         // Las fotos NO se listan aqui: se leen de /assets/img/galeria/<id>.
         // Para agregar mas, deja el archivo en la carpeta que toque.
