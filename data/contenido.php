@@ -58,8 +58,15 @@ return [
                 'texto'     => 'Visitas a refugios para levantar información directa: qué necesitaban, cuáles '
                              . 'eran los problemas más comunes de los perros en calle y cómo terminaban ahí. '
                              . 'Sirvió de diagnóstico para decidir en qué apoyar.',
-                'imagenes'  => [],
-                'imagen_pendiente' => 'investigacion-refugios',
+                'imagenes'  => [
+                    [
+                        'archivo' => 'investigacion-refugios',
+                        'alt'     => 'Camada de cachorros dentro de una jaula del refugio, junto a un '
+                                   . 'comedero metálico.',
+                        'pie'     => 'Así se ve el refugio por dentro. De estas visitas salió la lista de '
+                                   . 'lo que hacía falta: alimento, limpieza y espacio.',
+                    ],
+                ],
                 'enlaces'   => [
                     ['url' => 'https://www.instagram.com/p/DO4olIcjNyP/', 'texto' => 'Primera visita al refugio'],
                     ['url' => 'https://www.instagram.com/p/DPK4X-bjIAL/', 'texto' => 'Segunda visita al refugio'],
@@ -73,8 +80,14 @@ return [
                 'fecha_iso' => '2025',
                 'texto'     => 'Venta de bolis hecha personalmente para recaudar fondos, entregados directo '
                              . 'al refugio.',
-                'imagenes'  => [],
-                'imagen_pendiente' => 'venta-bolis',
+                'imagenes'  => [
+                    [
+                        'archivo' => 'venta-bolis',
+                        'alt'     => 'Hielera abierta llena de bolis de colores durante la venta en la escuela.',
+                        'pie'     => 'La hielera en plena venta. Los bolis se hicieron a mano; lo recaudado '
+                                   . 'se entregó al refugio.',
+                    ],
+                ],
                 'enlaces'   => [
                     ['url' => 'https://www.instagram.com/p/DO2NyJ3DDkn/', 'texto' => 'Publicación de la venta'],
                 ],
@@ -218,6 +231,56 @@ return [
                 'fuente'     => 'Septiembre de 2025 a febrero de 2026, por las fechas de las publicaciones.',
             ],
         ],
+    ],
+
+    'galeria' => [
+        'titulo' => 'Galería',
+
+        // Las fotos NO se listan aqui: se leen de /assets/img/galeria/<id>.
+        // Para agregar mas, deja el archivo en la carpeta que toque.
+        'grupos' => [
+            [
+                'id'        => 'bolis',
+                'corto'     => 'Venta de bolis',
+                'titulo'    => 'Venta de bolis en Tecmilenio',
+                'fecha'     => '17 de septiembre de 2025',
+                'fecha_iso' => '2025-09-17',
+                'texto'     => 'La vendimia con causa. Los bolis se prepararon y se vendieron en la escuela; '
+                             . 'lo recaudado se entregó al refugio.',
+            ],
+            [
+                'id'        => 'refugio',
+                'corto'     => 'Visita al refugio',
+                'titulo'    => 'Visita al refugio',
+                'fecha'     => '26 de septiembre de 2025',
+                'fecha_iso' => '2025-09-26',
+                'texto'     => 'Cómo se ve el refugio por dentro: los perros, los comederos, los insumos y '
+                             . 'el espacio con el que trabajan.',
+            ],
+            [
+                'id'        => 'croquetas',
+                'corto'     => 'Donación',
+                'titulo'    => 'Campaña de donación de croquetas',
+                'fecha'     => '3 de octubre de 2025',
+                'fecha_iso' => '2025-10-03',
+                'texto'     => 'La caja de acopio en la escuela y lo que se fue juntando.',
+            ],
+            [
+                'id'        => 'yoga',
+                'corto'     => 'Evento de yoga',
+                'titulo'    => 'Evento de adopción responsable',
+                'fecha'     => '16 de octubre de 2025',
+                'fecha_iso' => '2025-10-16',
+                'texto'     => 'La clase de yoga en el claustro de Tecmilenio, con los perros del refugio '
+                             . 'sueltos entre los participantes.',
+            ],
+        ],
+
+        // Plantilla del texto alternativo: %1$d es el numero de foto y %2$s
+        // el nombre de la jornada en minusculas.
+        'alt'  => 'Foto %1$d de la jornada: %2$s.',
+        'nota' => 'Las fotos son de mi cámara y están fechadas por el archivo original. '
+                . 'Quien aparezca y quiera que se retire su imagen, me escribe y se retira.',
     ],
 
     'aliados' => [

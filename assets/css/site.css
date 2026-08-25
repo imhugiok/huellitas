@@ -49,8 +49,8 @@ button, input { font: inherit; color: inherit; }
 
     /* Ritmo */
     --ancho-medida: 44rem;   /* texto: ~68 caracteres por linea */
-    --ancho-laminas: 48rem;  /* fotos y anexos: hasta el borde de la columna */
-    --ancho-contenido: 48rem; /* tope de la columna derecha, para que no quede coja */
+    --ancho-laminas: 56rem;  /* fotos y anexos: hasta el borde de la columna */
+    --ancho-contenido: 56rem; /* tope de la columna derecha, para que no quede coja */
     --canal-ancho:     17rem;  /* columna izquierda: titulo sticky y linea del tiempo */
     --canal-hueco:     clamp(2.5rem, 4vw, 4.5rem);
     --pie-cierre: 1.75rem;   /* mismo aire arriba y abajo de la firma */
@@ -107,9 +107,9 @@ a { color: inherit; }
 
 .contenedor {
     width: 100%;
-    max-width: 84rem;
+    max-width: 92rem;
     margin-inline: auto;
-    padding-inline: clamp(1.25rem, 3vw, 2.75rem);
+    padding-inline: clamp(1.25rem, 2.5vw, 2.5rem);
 }
 
 .visualmente-oculto {
@@ -225,7 +225,7 @@ a { color: inherit; }
     /* El logo deja de flotar arriba a la izquierda: comparte eje optico con
        el bloque de texto y la columna de texto se queda con el resto. */
     .encabezado__marca { flex-direction: row; align-items: center; gap: 2.25rem; }
-    .indice__lista { grid-template-columns: repeat(5, 1fr); border-top: 0; }
+    .indice__lista { grid-auto-flow: column; grid-auto-columns: 1fr; border-top: 0; }
     .indice__item { border-bottom: 0; border-top: 2px solid var(--linea-fuerte); }
     /* Cada entrada centrada en su celda: antes se pegaban al borde izquierdo
        de columnas anchas y el indice se veia descuadrado. */
@@ -519,6 +519,72 @@ a { color: inherit; }
     fill: none;
     stroke: var(--acento-tinta);
     stroke-width: 1.6;
+}
+
+
+/* --- 8b. Galeria ------------------------------------------------------- */
+
+.jornada + .jornada { margin-top: clamp(2.75rem, 2rem + 3vw, 4.5rem); }
+
+.jornada__titulo {
+    font-size: var(--texto-subtitulo);
+    margin-top: 0.35rem;
+}
+
+.jornada__texto {
+    margin-top: 0.5rem;
+    max-width: var(--ancho-medida);
+    color: var(--tinta-2);
+}
+
+.cuadricula {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.cuadricula__foto {
+    display: block;
+    border-radius: var(--radio);
+    overflow: hidden;
+    background: var(--papel-hondo);
+    outline-offset: 3px;
+}
+
+.cuadricula__foto img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 1px solid var(--linea);
+    border-radius: var(--radio);
+    transition: transform 320ms var(--curva), filter 320ms var(--curva);
+}
+
+.cuadricula__foto:hover img,
+.cuadricula__foto:focus-visible img {
+    transform: scale(1.03);
+    filter: brightness(1.04);
+}
+
+.galeria__nota {
+    margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--linea);
+    max-width: var(--ancho-medida);
+    color: var(--tinta-3);
+    font-size: var(--texto-chico);
+}
+
+@media (min-width: 40rem) {
+    .cuadricula { grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cuadricula__foto:hover img,
+    .cuadricula__foto:focus-visible img { transform: none; }
 }
 
 

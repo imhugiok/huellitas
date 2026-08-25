@@ -133,6 +133,37 @@ function enlazar_cuentas(string $texto): string
     );
 }
 
+/**
+ * Lista las fotos de un grupo de la galeria, en orden de nombre. Igual que
+ * con los anexos de las actividades: se dejan los archivos en la carpeta y
+ * aparecen solos, sin tocar codigo. Si la carpeta no existe, no pasa nada.
+ */
+function fotos_de_galeria(string $grupo): array
+{
+    $dir = RAIZ . '/assets/img/galeria/' . $grupo;
+
+    if (!is_dir($dir)) {
+        return [];
+    }
+
+    $archivos = glob($dir . '/*.{webp,jpg,jpeg,png}', GLOB_BRACE) ?: [];
+    sort($archivos);
+
+    $fotos = [];
+
+    foreach ($archivos as $ruta) {
+        $medidas = @getimagesize($ruta);
+
+        $fotos[] = [
+            'src'   => asset('assets/img/galeria/' . $grupo . '/' . basename($ruta)),
+            'ancho' => $medidas[0] ?? null,
+            'alto'  => $medidas[1] ?? null,
+        ];
+    }
+
+    return $fotos;
+}
+
 /** URL absoluta a partir de una ruta relativa, para OG y JSON-LD. */
 function url_absoluta(string $ruta, string $base): string
 {

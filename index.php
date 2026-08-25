@@ -33,6 +33,7 @@ header("Content-Security-Policy: "
 $secciones = [
     ['id' => 'que-es',       'titulo' => $c['que_es']['titulo']],
     ['id' => 'actividades',  'titulo' => $c['actividades']['titulo']],
+    ['id' => 'galeria',      'titulo' => $c['galeria']['titulo']],
     ['id' => 'numeros',      'titulo' => $c['numeros']['titulo']],
     ['id' => 'aliados',      'titulo' => $c['aliados']['titulo']],
     ['id' => 'estado',       'titulo' => $c['estado']['titulo']],
@@ -52,6 +53,8 @@ $secciones = [
     <?php componente('seccion-que-es', ['bloque' => $c['que_es']]); ?>
 
     <?php componente('seccion-actividades', ['bloque' => $c['actividades']]); ?>
+
+    <?php componente('seccion-galeria', ['bloque' => $c['galeria']]); ?>
 
     <?php componente('seccion-numeros', ['bloque' => $c['numeros']]); ?>
 

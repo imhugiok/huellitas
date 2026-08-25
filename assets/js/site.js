@@ -17,8 +17,8 @@
         }
 
         var objetivos = document.querySelectorAll(
-            '.seccion__cabecera, .prosa, .actividad, .tabla-envoltura, ' +
-            '.aliados__grupo, .pendientes'
+            '.seccion__cabecera, .prosa, .actividad, .jornada, ' +
+            '.tabla-envoltura, .aliados__grupo, .pendientes'
         );
 
         if (!objetivos.length) {
