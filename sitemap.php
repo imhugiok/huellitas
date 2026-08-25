@@ -27,4 +27,10 @@ echo '<?xml version="1.0" encoding="UTF-8"?>', "\n";
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc><?= e(rtrim($c['sitio']['url'], '/') . '/cuidados') ?></loc>
+        <lastmod><?= e(date('Y-m-d', ultima_actualizacion())) ?></lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>

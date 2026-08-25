@@ -21,6 +21,7 @@ Options -Indexes
     # /galeria sin extension. El servidor de PHP en local no lee .htaccess,
     # asi que ahi hay que entrar por /galeria.php.
     RewriteRule ^galeria/?$ galeria.php [L]
+    RewriteRule ^cuidados/?$ cuidados.php [L]
 </IfModule>
 
 <IfModule mod_headers.c>

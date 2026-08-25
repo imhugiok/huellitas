@@ -26,6 +26,7 @@ if (preg_match('~^/(data|lib|partials)/~', $ruta)) {
 
 $rutas = [
     '~^/galeria/?$~'  => 'galeria.php',
+    '~^/cuidados/?$~' => 'cuidados.php',
     '~^/sitemap\.xml$~' => 'sitemap.php',
 ];
 

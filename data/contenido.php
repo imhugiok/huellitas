@@ -262,13 +262,23 @@ return [
                              . 'lo recaudado se entregó al refugio.',
             ],
             [
+                'id'        => 'compra',
+                'corto'     => 'La compra',
+                'titulo'    => 'La compra de los insumos',
+                'fecha'     => '25 de septiembre de 2025',
+                'fecha_iso' => '2025-09-25',
+                'texto'     => 'Con lo recaudado en la venta de bolis se fue a comprar: croqueta, agua, '
+                             . 'escobas, vinagre y material de limpieza. Al día siguiente se entregó '
+                             . 'todo en el refugio.',
+            ],
+            [
                 'id'        => 'refugio',
                 'corto'     => 'Visita al refugio',
                 'titulo'    => 'Visita al refugio',
                 'fecha'     => '26 de septiembre de 2025',
                 'fecha_iso' => '2025-09-26',
-                'texto'     => 'Cómo se ve el refugio por dentro: los perros, los comederos, los insumos y '
-                             . 'el espacio con el que trabajan.',
+                'texto'     => 'La entrega de lo que se compró el día anterior, y cómo se ve el refugio '
+                             . 'por dentro: los perros, los comederos y el espacio con el que trabajan.',
             ],
             [
                 'id'        => 'croquetas',
@@ -294,6 +304,139 @@ return [
         'alt'  => 'Foto %1$d de la jornada: %2$s.',
         'nota' => 'Las fotos son de mi cámara y están fechadas por el archivo original. '
                 . 'Quien aparezca y quiera que se retire su imagen, me escribe y se retira.',
+    ],
+
+    'cuidados' => [
+        'titulo'      => 'Cuidados',
+        'entradilla'  => 'Lo que aprendimos preguntando en los refugios, contado en corto.',
+        'descripcion' => 'Guía práctica sobre adopción responsable, qué necesita un refugio y qué '
+                       . 'hacer si te encuentras un perro en la calle. Escrita desde el trabajo de '
+                       . 'campo de Huellitas al Corazón en Guadalajara.',
+
+        'aviso' => 'Esto no sustituye a un veterinario. Cualquier cosa de salud (vacunas, '
+                 . 'desparasitación, esterilización, una herida, un perro que no come) se consulta '
+                 . 'con uno, y de preferencia antes de que sea urgente.',
+
+        'articulos' => [
+            'titulo' => 'Artículos',
+            'items'  => [
+                [
+                    'id'     => 'lo-que-necesita-un-refugio',
+                    'titulo' => 'Lo que de verdad necesita un refugio',
+                    'lede'   => 'Antes de decidir en qué apoyar, fuimos a preguntar. Lo que contestaron '
+                              . 'no se parece mucho a lo que uno imagina desde afuera.',
+                    'parrafos' => [
+                        'La idea que uno trae es que un refugio necesita gente que adopte. Y sí, pero eso '
+                        . 'es el final de una cadena larga. Cuando preguntamos directamente, lo primero '
+                        . 'que salió fue mucho más terrenal: comida, agua limpia y manos.',
+                        'Lo que anotamos ese día fue esto. Escasez de vacunación y esterilización, que es '
+                        . 'lo que hace que el problema se renueve solo. Falta de recursos básicos: poca '
+                        . 'comida, poca agua, pocos baños y poquísimos trabajadores para la cantidad de '
+                        . 'animales que hay. E infraestructura limitada: terrenos baldíos y '
+                        . 'construcciones que no se hicieron para esto.',
+                        'De ahí salió en qué apoyar. No inventamos una necesidad para llenarla: llevamos '
+                        . 'croqueta, artículos de limpieza y los fondos que juntamos, porque eso fue lo '
+                        . 'que pidieron.',
+                        'Si vas a ayudar a un refugio y no sabes por dónde, la respuesta corta es '
+                        . 'preguntarles. La lista de cada uno es distinta y cambia con la temporada.',
+                    ],
+                ],
+                [
+                    'id'     => 'adoptar-no-es-rescatar',
+                    'titulo' => 'Adoptar no es rescatar',
+                    'lede'   => 'Son dos cosas distintas, y confundirlas les hace daño a las dos.',
+                    'parrafos' => [
+                        'Rescatar es sacar a un animal de una situación concreta. Adoptar es hacerse '
+                        . 'cargo de uno durante los diez, doce o quince años que le queden. La primera '
+                        . 'dura una tarde; la segunda dura más que muchos trabajos.',
+                        'Lo decimos porque los eventos de adopción tienen un riesgo: la emoción del '
+                        . 'momento. Alguien conoce a un perro, se conmueve y se lo lleva. A las tres '
+                        . 'semanas descubre que no tenía dónde dejarlo cuando viaja, o que no había '
+                        . 'contado el gasto del veterinario, y el perro vuelve al refugio peor que como '
+                        . 'salió, porque ya perdió una casa.',
+                        'Por eso en el evento que organizamos la idea no fue enseñar perros en jaulas, '
+                        . 'sino que la gente conviviera con ellos un rato largo y sin prisa. Un perro que '
+                        . 'te cae bien después de una hora es una decisión más honesta que uno que te dio '
+                        . 'ternura en diez segundos.',
+                        'Antes de adoptar vale la pena contestarse tres cosas sin trampa: quién lo cuida '
+                        . 'cuando no estás, cuánto puedes gastar al mes, y qué haces si el perro resulta '
+                        . 'tener un problema de salud caro. Si las tres tienen respuesta, adelante.',
+                    ],
+                ],
+                [
+                    'id'     => 'esterilizacion',
+                    'titulo' => 'La esterilización es lo que corta el ciclo',
+                    'lede'   => 'Todo lo demás alivia. Esto es lo único que baja el número.',
+                    'parrafos' => [
+                        'Se puede llevar croqueta todas las semanas y el refugio va a seguir igual de '
+                        . 'lleno, porque entran más de los que salen. Eso lo vimos en la práctica: la '
+                        . 'presión de ingreso supera a las adopciones.',
+                        'La esterilización es la única medida que actúa antes y no después. Una perra sin '
+                        . 'esterilizar y sus crías pueden convertirse en muchos animales en calle en '
+                        . 'pocos años, y ninguno de ellos va a caber en un refugio.',
+                        'La objeción que más escuchamos es el costo. Vale la pena buscar: hay campañas '
+                        . 'municipales y clínicas que manejan precios sociales, y suelen anunciarse con '
+                        . 'poca antelación y menos difusión de la que merecen. Preguntar en el refugio '
+                        . 'más cercano suele ser el atajo, porque ellos sí saben cuándo son.',
+                    ],
+                ],
+            ],
+        ],
+
+        'preguntas' => [
+            'titulo' => 'Preguntas frecuentes',
+            'nota'   => 'Son las preguntas que hicimos en la encuesta del proyecto, contestadas con lo '
+                      . 'que aprendimos después.',
+            'items'  => [
+                [
+                    'p' => '¿Qué hago si me encuentro un perro en la calle?',
+                    'r' => 'Primero míralo de lejos un momento: si está herido, muy asustado o agresivo, '
+                         . 'no te acerques solo. Si se deja, revisa si trae collar o placa, porque muchos '
+                         . 'perros en calle son perdidos y no abandonados. Publica una foto con la '
+                         . 'ubicación en grupos vecinales antes de moverlo de zona: su familia lo está '
+                         . 'buscando ahí. Si nadie lo reclama, llama al refugio antes de llevárselo, '
+                         . 'porque casi siempre están llenos y necesitan saber.',
+                ],
+                [
+                    'p' => '¿Puedo ayudar si no puedo adoptar?',
+                    'r' => 'Sí, y hace falta más de lo que parece. Puedes ser hogar temporal, que es lo '
+                         . 'que más descongestiona a un refugio. Puedes llevar croqueta o artículos de '
+                         . 'limpieza, que se acaban cada semana. Puedes ir a ayudar un sábado. Y puedes '
+                         . 'difundir: una publicación compartida a tiempo consigue adopciones que de otra '
+                         . 'forma no pasan.',
+                ],
+                [
+                    'p' => '¿Adoptar es mejor que comprar?',
+                    'r' => 'Para el problema del que hablamos, sí: cada adopción libera un lugar en un '
+                         . 'refugio que ya está lleno, y cada compra sostiene una demanda que se surte '
+                         . 'criando más. Dicho eso, adoptar mal es peor que no adoptar. El punto no es '
+                         . 'llevarse uno rápido, es llevarse el correcto y quedárselo.',
+                ],
+                [
+                    'p' => '¿Cuánto cuesta mantener un perro?',
+                    'r' => 'Depende del tamaño y de la ciudad, así que cualquier cifra que te diéramos '
+                         . 'sería inventada. Lo que sí podemos decirte es qué contar: comida, vacunas al '
+                         . 'año, desparasitación, esterilización una vez, y un fondo para el día que se '
+                         . 'enferme, que es el gasto que tumba a la gente. Pide precios en dos o tres '
+                         . 'veterinarias de tu zona antes de decidir.',
+                ],
+                [
+                    'p' => '¿Qué necesita un perro recién adoptado los primeros días?',
+                    'r' => 'Menos de lo que uno cree y más paciencia de la que uno trae. Un rincón propio '
+                         . 'donde nadie lo moleste, horarios fijos de comida y paseo, y tiempo. Un perro '
+                         . 'que viene de la calle o de un refugio puede tardar semanas en soltarse; que '
+                         . 'se esconda los primeros días es normal y no es que no le gustes. La revisión '
+                         . 'con el veterinario, en cambio, es de la primera semana.',
+                ],
+                [
+                    'p' => '¿Cómo sé si un refugio es serio?',
+                    'r' => 'Te dejan visitar. Te preguntan a ti antes de darte un perro, en vez de '
+                         . 'entregártelo de inmediato. Tienen registro de qué animal es cuál. Y te dicen '
+                         . 'que no si ven que no encaja. Un refugio que no filtra no te está haciendo un '
+                         . 'favor: está moviendo el problema de sitio.',
+                ],
+            ],
+        ],
     ],
 
     'aliados' => [

@@ -280,7 +280,7 @@ a { color: inherit; }
 
 .seccion + .seccion { border-top: 1px solid var(--linea); }
 
-.seccion__reja { display: grid; gap: 2rem; }
+.seccion__reja { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
 
 .seccion__titulo { font-size: var(--texto-h2); }
 
@@ -495,7 +495,7 @@ a { color: inherit; }
 }
 
 @media (min-width: 40rem) {
-    .laminas--par { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .laminas--par { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; }
     .laminas--par img { aspect-ratio: 3 / 4; object-fit: cover; }
 }
 
@@ -578,7 +578,7 @@ a { color: inherit; }
     margin-top: 1.5rem;
     display: grid;
     gap: 0.6rem;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 /* --- Version ancha, la de /galeria ------------------------------------- */
@@ -626,15 +626,15 @@ a { color: inherit; }
 .cuadricula.cuadricula--ancha {
     margin-top: 0;
     gap: 0.5rem;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 @media (min-width: 48rem) {
-    .cuadricula.cuadricula--ancha { grid-template-columns: repeat(4, 1fr); }
+    .cuadricula.cuadricula--ancha { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 @media (min-width: 62rem) {
-    .cuadricula.cuadricula--ancha { grid-template-columns: repeat(6, 1fr); }
+    .cuadricula.cuadricula--ancha { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
 
 .cuadricula__foto {
@@ -695,6 +695,56 @@ a { color: inherit; }
     text-transform: uppercase;
 }
 
+/* Despliegue del resto de una jornada. <details> nativo: funciona sin JS. */
+.mas-fotos { margin-top: 1rem; }
+
+.mas-fotos__boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.15rem;
+    border: 1px solid var(--linea-fuerte);
+    border-radius: 100px;
+    background: var(--papel-alto);
+    color: var(--tinta-2);
+    font-size: var(--texto-chico);
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+    transition: border-color 180ms var(--curva), color 180ms var(--curva),
+                transform 180ms var(--curva);
+}
+
+.mas-fotos__boton::-webkit-details-marker { display: none; }
+
+.mas-fotos__boton::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    rotate: 45deg;
+    translate: 0 -2px;
+    transition: rotate 220ms var(--curva);
+}
+
+.mas-fotos__boton:hover,
+.mas-fotos__boton:focus-visible {
+    border-color: var(--acento);
+    color: var(--tinta);
+    transform: translateY(-1px);
+}
+
+.mas-fotos[open] .mas-fotos__boton::after { rotate: -135deg; translate: 0 2px; }
+
+.mas-fotos__cerrar { display: none; }
+.mas-fotos[open] .mas-fotos__abrir { display: none; }
+.mas-fotos[open] .mas-fotos__cerrar { display: inline; }
+
+.mas-fotos .cuadricula { margin-top: 0.5rem; }
+
+.mas-fotos[open] { margin-bottom: 0.5rem; }
+
 .galeria__salida { margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); }
 
 .galeria__nota {
@@ -708,12 +758,74 @@ a { color: inherit; }
 }
 
 @media (min-width: 40rem) {
-    .cuadricula { grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+    .cuadricula { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .cuadricula__foto:hover img,
     .cuadricula__foto:focus-visible img { transform: none; }
+}
+
+
+/* --- 8c. Cuidados: articulos y preguntas ------------------------------- */
+
+.articulo + .articulo {
+    margin-top: clamp(2.75rem, 2rem + 3vw, 4rem);
+    padding-top: clamp(2.75rem, 2rem + 3vw, 4rem);
+    border-top: 1px solid var(--linea);
+}
+
+.articulo__titulo {
+    font-size: var(--texto-subtitulo);
+    letter-spacing: -0.02em;
+}
+
+.articulo__lede {
+    margin-top: 0.6rem;
+    margin-bottom: 1.35rem;
+    max-width: var(--ancho-medida);
+    color: var(--tinta);
+    border-left: 2px solid var(--acento);
+    padding-left: 1rem;
+}
+
+.preguntas__nota {
+    max-width: var(--ancho-medida);
+    margin-bottom: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+    color: var(--tinta-3);
+    font-size: var(--texto-chico);
+}
+
+.preguntas { margin: 0; }
+
+.pregunta {
+    padding-block: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+    border-top: 1px solid var(--linea);
+    max-width: var(--ancho-medida);
+}
+
+.pregunta:last-child { border-bottom: 1px solid var(--linea); }
+
+.pregunta__p {
+    font-weight: 600;
+    letter-spacing: -0.011em;
+    text-wrap: balance;
+}
+
+.pregunta__r {
+    margin: 0.55rem 0 0;
+    color: var(--tinta-2);
+}
+
+.aviso {
+    margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+    padding: 1.15rem 1.35rem;
+    max-width: var(--ancho-medida);
+    border: 1px solid var(--linea-fuerte);
+    border-radius: var(--radio);
+    background: var(--papel-hondo);
+    color: var(--tinta-2);
+    font-size: var(--texto-chico);
 }
 
 
@@ -944,9 +1056,11 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 .pie__marca {
     font-weight: 600;
     letter-spacing: -0.035em;
-    font-size: clamp(2.25rem, 1.2rem + 4.6vw, 4.5rem);  /* 36 -> 72px */
-    line-height: 1.02;
-    max-width: 9ch;
+    /* Una sola linea: el tope lo pone el ancho, no un max-width que partia
+       el nombre en dos. 19 caracteres a 0.42em de ancho medio cada uno. */
+    font-size: clamp(1.5rem, 8vw, 5rem);  /* hasta 80px */
+    line-height: 1.05;
+    white-space: nowrap;
 }
 
 .pie__datos {

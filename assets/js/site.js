@@ -17,8 +17,8 @@
         }
 
         var objetivos = document.querySelectorAll(
-            '.seccion__cabecera, .prosa, .actividad, .jornada, ' +
-            '.tabla-envoltura, .aliados__grupo, .pendientes'
+            '.seccion__cabecera, .prosa, .actividad, .jornada, .articulo, ' +
+            '.pregunta, .tabla-envoltura, .aliados__grupo, .pendientes'
         );
 
         if (!objetivos.length) {
@@ -225,7 +225,7 @@
 
             evento.preventDefault();
 
-            var grupo = enlace.closest('.cuadricula') || document;
+            var grupo = enlace.closest('.jornada') || enlace.closest('.cuadricula') || document;
             lista = Array.prototype.slice.call(grupo.querySelectorAll('.cuadricula__foto'));
             actual = lista.indexOf(enlace);
 
