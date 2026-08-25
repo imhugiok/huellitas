@@ -112,12 +112,24 @@ function svg_en_linea(string $ruta, string $clase = '', string $titulo = ''): st
 /** Convierte @cuenta suelta dentro de un texto en enlace a Instagram. */
 function enlazar_cuentas(string $texto): string
 {
+    $html = e($texto);
+
+    // [texto](https://...) para enlazar fuera de Instagram. Solo https, para
+    // que del contenido no pueda salir un javascript: por descuido.
+    $html = preg_replace_callback(
+        '~\[([^\]]+)\]\((https://[^\s)]+)\)~',
+        static fn (array $m): string =>
+            '<a class="enlace-texto" href="' . $m[2] . '"'
+            . ' target="_blank" rel="noopener noreferrer">' . $m[1] . '</a>',
+        $html
+    );
+
     return preg_replace_callback(
         '~@([A-Za-z0-9._]+)~',
         static fn (array $m): string =>
             '<a class="cuenta" href="https://www.instagram.com/' . rawurlencode($m[1]) . '/"'
             . ' target="_blank" rel="noopener noreferrer">@' . e($m[1]) . '</a>',
-        e($texto)
+        $html
     );
 }
 

@@ -46,7 +46,7 @@ return [
 
         // Marcador visible cuando falta la foto de un bloque. Ponlo en false
         // si prefieres que el hueco no se note mientras consigues las imágenes.
-        'mostrar_anexos_pendientes' => true,
+        'mostrar_anexos_pendientes' => false,
 
         'items' => [
             [
@@ -229,10 +229,12 @@ return [
     'estado' => [
         'titulo'   => 'Estado actual',
         'parrafos' => [
-            'Entre febrero y agosto de 2026 el proyecto estuvo en pausa. Lo pausé para concentrarme en '
-            . 'Estudia, una plataforma educativa gratuita que construyo solo. No podía sostener los dos '
-            . 'al mismo tiempo y preferí decirlo en vez de dejarlo colgado sin explicación.',
-            'En agosto de 2026 lo retomé. La cuenta sigue activa y las alianzas con los dos refugios y '
+            'Entre febrero y julio de 2026 el proyecto estuvo en pausa. Lo pausé para concentrarme en '
+            . '[Estudia](https://estudia.hugorivera.me), una herramienta de estudio con IA que construyo '
+            . 'solo: genera material a partir de los documentos del alumno, programa el repaso espaciado '
+            . 'y tiene varios modos de juego. Es gratis y se sostiene con donaciones. No podía con los '
+            . 'dos al mismo tiempo y preferí decirlo en vez de dejar este colgado sin explicación.',
+            'En julio de 2026 lo retomé. La cuenta sigue activa y las alianzas con los dos refugios y '
             . 'el estudio de yoga también.',
         ],
         'pendientes' => [

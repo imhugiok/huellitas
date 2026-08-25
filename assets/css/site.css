@@ -39,17 +39,20 @@ button, input { font: inherit; color: inherit; }
     --sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system,
             "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-    --texto-base:   clamp(1.0625rem, 1.015rem + 0.24vw, 1.1875rem); /* 17 -> 19px */
-    --texto-chico:  clamp(0.9375rem, 0.91rem + 0.14vw, 1rem);
-    --texto-meta:   0.8125rem;
-    --texto-h1:     clamp(2.625rem, 1.75rem + 4.1vw, 5rem);
-    --texto-h2:     clamp(1.75rem, 1.45rem + 1.35vw, 2.375rem);
-    --texto-h3:     clamp(1.1875rem, 1.09rem + 0.5vw, 1.4375rem);
-    --texto-cifra:  clamp(1.625rem, 1.25rem + 1.7vw, 2.5rem);
+    --texto-meta:      0.8125rem;                                      /* 13px */
+    --texto-chico:     clamp(0.9375rem, 0.91rem + 0.14vw, 1rem);       /* 15 -> 16 */
+    --texto-base:      clamp(1.0625rem, 1.015rem + 0.24vw, 1.1875rem); /* 17 -> 19 */
+    --texto-subtitulo: clamp(1.25rem, 1.09rem + 0.8vw, 1.5rem);        /* 20 -> 24 */
+    --texto-h2:        clamp(1.75rem, 1.45rem + 1.35vw, 2.375rem);     /* 28 -> 38 */
+    --texto-cifra:     clamp(1.625rem, 1.25rem + 1.7vw, 2.5rem);       /* 26 -> 40 */
+    --texto-h1:        clamp(2.625rem, 1.55rem + 5vw, 5.625rem);       /* 42 -> 90 */
 
     /* Ritmo */
-    --ancho-medida: 40rem;   /* texto: ~62 caracteres por linea */
-    --ancho-laminas: 52rem;  /* fotos y anexos: pueden respirar mas */
+    --ancho-medida: 44rem;   /* texto: ~68 caracteres por linea */
+    --ancho-laminas: 48rem;  /* fotos y anexos: hasta el borde de la columna */
+    --ancho-contenido: 48rem; /* tope de la columna derecha, para que no quede coja */
+    --canal-ancho:     17rem;  /* columna izquierda: titulo sticky y linea del tiempo */
+    --canal-hueco:     clamp(2.5rem, 4vw, 4.5rem);
     --pie-cierre: 1.75rem;   /* mismo aire arriba y abajo de la firma */
     --espacio-seccion: clamp(3.75rem, 2.5rem + 5.5vw, 7.5rem);
     --radio: 3px;
@@ -162,7 +165,7 @@ a { color: inherit; }
 }
 
 .marca__logo {
-    width: clamp(228px, 39vw, 312px);
+    width: clamp(180px, 32vw, 240px);
     height: auto;
     color: var(--tinta);
     flex: none;
@@ -179,7 +182,7 @@ a { color: inherit; }
     margin-top: 1.125rem;
     max-width: 32rem;
     color: var(--tinta-2);
-    font-size: clamp(1.125rem, 1.03rem + 0.5vw, 1.375rem);
+    font-size: var(--texto-subtitulo);
     line-height: 1.45;
     text-wrap: balance;
 }
@@ -221,14 +224,7 @@ a { color: inherit; }
 @media (min-width: 48rem) {
     /* El logo deja de flotar arriba a la izquierda: comparte eje optico con
        el bloque de texto y la columna de texto se queda con el resto. */
-    .encabezado__marca {
-        display: grid;
-        grid-template-columns: minmax(12rem, 20rem) minmax(0, 1fr);
-        align-items: center;
-        gap: clamp(2rem, 4vw, 4.5rem);
-    }
-
-    .marca__logo { width: 100%; }
+    .encabezado__marca { flex-direction: row; align-items: center; gap: 2.25rem; }
     .indice__lista { grid-template-columns: repeat(5, 1fr); border-top: 0; }
     .indice__item { border-bottom: 0; border-top: 2px solid var(--linea-fuerte); }
     .indice__enlace { flex-direction: column; gap: 0.35rem; padding: 0.75rem 0 0; }
@@ -291,9 +287,10 @@ a { color: inherit; }
 }
 
 .canal__fecha {
-    font-size: 0.6875rem;
+    font-size: var(--texto-meta);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--tinta-3);
-    opacity: 0.75;
 }
 
 .canal__enlace:hover,
@@ -318,10 +315,29 @@ a { color: inherit; }
     transform: scale(1.6);
 }
 
+/* El encabezado hereda la misma reja que las secciones: el logo cae sobre el
+   eje de los titulos de seccion y el h1 sobre el eje del contenido. */
 @media (min-width: 62rem) {
+    .encabezado__marca,
+    .indice {
+        max-width: calc(var(--canal-ancho) + var(--canal-hueco) + var(--ancho-contenido));
+        margin-inline: auto;
+    }
+
+    .encabezado__marca {
+        display: grid;
+        grid-template-columns: var(--canal-ancho) minmax(0, var(--ancho-contenido));
+        column-gap: var(--canal-hueco);
+        align-items: center;
+    }
+
     .seccion__reja {
-        grid-template-columns: 17rem minmax(0, 1fr);
-        column-gap: clamp(2.5rem, 4vw, 4.5rem);
+        /* La columna derecha tiene tope: sin el, el texto quedaba pegado a la
+           izquierda y sobraba media pantalla a la derecha. Con tope, la reja
+           entera se centra en el contenedor. */
+        grid-template-columns: var(--canal-ancho) minmax(0, var(--ancho-contenido));
+        column-gap: var(--canal-hueco);
+        justify-content: center;
     }
 
     .seccion__cabecera {
@@ -350,9 +366,8 @@ a { color: inherit; }
 .prosa p + p { margin-top: 1.15em; }
 
 .prosa__destacado {
-    font-size: clamp(1.1875rem, 1.09rem + 0.55vw, 1.5rem);
-    line-height: 1.45;
-    letter-spacing: -0.011em;
+    color: var(--tinta);
+    letter-spacing: -0.006em;
 }
 
 .cuenta {
@@ -365,6 +380,18 @@ a { color: inherit; }
 }
 
 .cuenta:hover { text-decoration-color: currentColor; }
+
+.enlace-texto {
+    color: var(--tinta);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: var(--linea-fuerte);
+    transition: text-decoration-color 160ms var(--curva);
+}
+
+.enlace-texto:hover { text-decoration-color: var(--acento); }
 
 
 /* --- 8. Actividades ---------------------------------------------------- */
@@ -388,7 +415,7 @@ a { color: inherit; }
 .fecha { color: var(--acento-tinta); }
 
 .actividad__titulo {
-    font-size: var(--texto-h3);
+    font-size: var(--texto-subtitulo);
     margin-bottom: 0.5rem;
 }
 
@@ -673,7 +700,8 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 }
 
 .pendientes {
-    padding: 1.5rem;
+    padding: 1.5rem 1.75rem;
+    max-width: var(--ancho-laminas);
     border: 1px solid var(--linea-fuerte);
     border-radius: var(--radio);
     background: var(--papel-alto);
@@ -696,10 +724,6 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 
 .pendientes__lista li::marker { color: var(--acento); }
 
-@media (min-width: 62rem) {
-    .estado-actual { grid-template-columns: minmax(0, 1fr) 20rem; }
-}
-
 
 /* --- 12. Pie ----------------------------------------------------------- */
 
@@ -716,7 +740,7 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 .pie__marca {
     font-weight: 600;
     letter-spacing: -0.02em;
-    font-size: var(--texto-h3);
+    font-size: var(--texto-subtitulo);
 }
 
 .pie__datos {
