@@ -683,6 +683,10 @@ a { color: inherit; }
 .cuadricula__contador {
     position: absolute;
     inset: 0;
+    /* El filter de la imagen la vuelve contexto de apilado, asi que sin esto
+       tapaba al contador cuando el contador viene antes en el marcado (que es
+       lo que hace PHP en la portada; el JS de /galeria lo anade despues). */
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
