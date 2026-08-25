@@ -48,7 +48,9 @@ button, input { font: inherit; color: inherit; }
     --texto-cifra:  clamp(1.625rem, 1.25rem + 1.7vw, 2.5rem);
 
     /* Ritmo */
-    --ancho-medida: 40rem;
+    --ancho-medida: 40rem;   /* texto: ~62 caracteres por linea */
+    --ancho-laminas: 52rem;  /* fotos y anexos: pueden respirar mas */
+    --pie-cierre: 1.75rem;   /* mismo aire arriba y abajo de la firma */
     --espacio-seccion: clamp(3.75rem, 2.5rem + 5.5vw, 7.5rem);
     --radio: 3px;
 
@@ -101,8 +103,10 @@ a { color: inherit; }
 /* --- 4. Utilidades ----------------------------------------------------- */
 
 .contenedor {
-    width: min(100% - 2.5rem, 72rem);
+    width: 100%;
+    max-width: 84rem;
     margin-inline: auto;
+    padding-inline: clamp(1.25rem, 3vw, 2.75rem);
 }
 
 .visualmente-oculto {
@@ -398,7 +402,7 @@ a { color: inherit; }
     margin-top: 1.75rem;
     display: grid;
     gap: 1.5rem;
-    max-width: var(--ancho-medida);
+    max-width: var(--ancho-laminas);
 }
 
 .lamina { margin: 0; }
@@ -427,7 +431,7 @@ a { color: inherit; }
 /* Marcador discreto para los bloques que todavia no tienen foto. */
 .anexo-pendiente {
     margin-top: 1.5rem;
-    max-width: var(--ancho-medida);
+    max-width: var(--ancho-laminas);
     padding: 0.7rem 0 0.7rem 1rem;
     border-left: 2px dashed var(--linea-fuerte);
     color: var(--tinta-3);
@@ -700,7 +704,7 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 /* --- 12. Pie ----------------------------------------------------------- */
 
 .pie {
-    padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
+    padding-block: clamp(2.5rem, 2rem + 3vw, 4rem) 0;
     border-top: 2px solid var(--tinta);
 }
 
@@ -734,12 +738,15 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
 .pie__datos a:hover { text-decoration-color: var(--acento); }
 
 /* Cierre centrado, al modo de Naeva: una regla y una sola linea. */
-.pie__legal { margin-top: clamp(3rem, 2rem + 4vw, 5rem); }
+.pie__legal {
+    margin-top: clamp(3rem, 2rem + 4vw, 5rem);
+    padding-bottom: var(--pie-cierre);
+}
 
 .pie__regla {
     height: 1px;
     background: var(--linea);
-    margin-bottom: 1.625rem;
+    margin-bottom: var(--pie-cierre);
 }
 
 .pie__legal p {
@@ -749,6 +756,17 @@ a.aliado:focus-visible { color: var(--acento-tinta); border-color: var(--acento)
     font-size: var(--texto-chico);
     line-height: 1.6;
 }
+
+.pie__legal a {
+    font-weight: 700;
+    color: var(--tinta);
+    text-decoration: underline;
+    text-decoration-color: var(--linea-fuerte);
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color 160ms var(--curva);
+}
+
+.pie__legal a:hover { text-decoration-color: var(--acento); }
 
 
 @media (min-width: 48rem) {

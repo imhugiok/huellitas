@@ -175,9 +175,10 @@ return [
             ],
             [
                 'metrica'    => 'Seguidores en Instagram',
-                'confirmado' => '122',
+                'confirmado' => '124',
                 'estimado'   => null,
-                'fuente'     => null,
+                'fuente'     => 'Hoy. Durante el periodo activo la cuenta llegó a 221; la caída es de los '
+                              . 'meses de pausa.',
             ],
             [
                 'metrica'    => 'Fondos recaudados',

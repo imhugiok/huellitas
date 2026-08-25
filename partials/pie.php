@@ -30,7 +30,8 @@
             <p>
                 Última actualización del contenido:
                 <time datetime="<?= e(date('Y-m-d', $actualizado)) ?>"><?= e(fecha_es($actualizado)) ?></time>.
-                <?= e($pie['firma']) ?>
+                Con amor, por <a href="<?= e($pie['autor_url']) ?>"
+                                 target="_blank" rel="noopener noreferrer"><?= e($pie['autor']) ?></a>.
             </p>
         </div>
 
